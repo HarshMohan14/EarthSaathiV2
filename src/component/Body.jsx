@@ -6,6 +6,7 @@ import Tailored from './Tailored'
 import Innovation from './Innovation'
 import Contact from './Contact'
 import AchievementCarousel from './Achievement'
+import Success from './Success'
 
 const Body = () => {
   // Initialize Lenis for smooth scrolling
@@ -28,8 +29,9 @@ const Body = () => {
     <div>
       <Hero />
       <Tailored />
-      <Innovation />
+      {/* <Innovation /> */}
       <AchievementCarousel />
+      <Success />
       <Contact />
     </div>
   )

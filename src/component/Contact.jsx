@@ -19,13 +19,13 @@ const Contact = () => {
     >
       {/* Heading Section with Parallax Effect */}
       <motion.h2
-        className="font-semibold text-4xl mb-4 text-center"
+        className="text-2xl font-semibold md:text-7xl text-[#0C1F5E] text-center"
         style={{ y: yHeading }}
       >
         Get in Touch
       </motion.h2>
       <motion.p
-        className="text-lg text-center mb-8 max-w-xl"
+        className="text-xl md:text-2xl text-[#0C1F5E] text-center mt-4 mb-8 max-w-2xl"
         style={{ y: yHeading }}
       >
         Ready to explore how EarthSaathi can benefit your business? Contact us

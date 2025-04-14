@@ -1,156 +1,131 @@
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import bpcl from "../../public/bpcl.jpg";
-import shell from "../../public/shell.jpg";
-import aic from "../../public/AIC.jpg"
-const achievements = [
+
+const testimonials = [
   {
-    title: "Shell E4",
-    description:
-      "After a multi-level screening process, Shell E4 has selected 5 innovative startups to join the boot camp journey for the Net Zero Challenge. Presenting the Top 5 selected startups: Apratima Biosolutions Pvt Ltd, Rechain Technologies Pvt Ltd, EarthSaathi, Low Cost Indigeneous CO2 Electrolyser and PrakREti.",
-    image: bpcl,
+    quote: "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
+    name: "Tamar Mendelson",
+    designation: "Restaurant Critic",
+    src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    title: "BPCL Innovation Award 2023",
-    description:
-      "EarthSaathi has been selected as one of the finalists in the BPCL Innovation Award 2023 Final Round! 🚀 The competition has been fierce, with an overwhelming response from innovators in the field of energy and sustainability.",
-    image: shell,
+    quote: "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
+    name: "Joe Charlescraft",
+    designation: "Frequent Visitor",
+    src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
   },
   {
-    title: "Incubated by AIC Sangam Innovation Foundation. Received the grant of ₹20 lakhs",
-    description:
-      "EarthSaathi is among the selected ventures supported by Amaly Legacy's Climate and Social Innovation Studio. This incredible opportunity will help us design Proof of Concepts (PoCs) and aid our market entry/distribution efforts. We’re excited to create social and environmental impact in rural communities, particularly in areas like community development, forestry, agriculture, and value-added processing in East Africa.",
-    image: aic,
+    quote: "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+    name: "Martina Edelweist",
+    designation: "Satisfied Customer",
+    src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
   },
 ];
 
-const AchievementCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("right");
+const AnimatedTestimonials = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleNext = () => {
-    setDirection("right");
-    setCurrentIndex((prev) => (prev + 1) % achievements.length);
+  const updateTestimonial = (direction) => {
+    const newIndex = (activeIndex + direction + testimonials.length) % testimonials.length;
+    setActiveIndex(newIndex);
   };
 
-  const handlePrev = () => {
-    setDirection("left");
-    setCurrentIndex((prev) => (prev - 1 + achievements.length) % achievements.length);
-  };
+  useEffect(() => {
+    const autoplayInterval = setInterval(() => updateTestimonial(1), 5000);
 
-  const cardVariants = {
-    hidden: (direction) => ({
-      x: direction === "right" ? "100%" : "-100%",
-      opacity: 0,
-    }),
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
-    exit: (direction) => ({
-      x: direction === "right" ? "-100%" : "100%",
-      opacity: 0,
-      transition: { duration: 0.3 },
-    }),
-  };
+    return () => clearInterval(autoplayInterval); // Cleanup interval on unmount
+  }, [activeIndex]);
 
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  const textAnimation = {
+    hidden: { opacity: 0.3, y: 10 }, // Start at 30% opacity and slightly below
+    visible: { opacity: 1, y: 0 }, // Animate to full opacity and original position
   };
 
   return (
-    <div className="relative max-w-4xl mx-auto px-4 py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8 text-center"
-      >
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-600 bg-clip-text text-transparent mb-4">
-          Proven Excellence in Innovation
-        </h1>
-        <p className="text-lg text-gray-600">
-          EarthSaathi has garnered industry recognition for our commitment to sustainability and innovation
-        </p>
-      </motion.div>
+    <div className="flex justify-center flex-col items-center gap-12 min-h-screen ">
+        <h1 className="text-2xl md:text-7xl text-[#0C1F5E]">Meet Our Teams</h1>
+      <div className="max-w-7xl p-8">
+        <div className="grid gap-20 md:grid-cols-2">
+          {/* Image Container */}
+          <div className="relative w-full h-96 perspective">
+            {testimonials.map((testimonial, index) => {
+              const offset = index - activeIndex;
+              const absOffset = Math.abs(offset);
+              const zIndex = testimonials.length - absOffset;
+              const opacity = index === activeIndex ? 1 : 0.7;
+              const scale = 1 - absOffset * 0.15;
+              const translateY = offset === -1 ? "-20%" : offset === 1 ? "20%" : "0%";
+              const rotateY = offset === -1 ? "15deg" : offset === 1 ? "-15deg" : "0deg";
 
-      <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
-          key={currentIndex}
-          custom={direction}
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="bg-white rounded-2xl shadow-2xl overflow-hidden"
-        >
-          {/* Image Section */}
-          <div className="h-64 overflow-hidden">
-            <img
-              src={achievements[currentIndex].image}
-              alt={achievements[currentIndex].title}
-              className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-300"
-            />
+              return (
+                <img
+                  key={index}
+                  src={testimonial.src}
+                  alt={testimonial.name}
+                  className="absolute w-full h-full object-cover rounded-lg shadow-lg transition-transform duration-700"
+                  style={{
+                    zIndex,
+                    opacity,
+                    transform: `translateY(${translateY}) scale(${scale}) rotateY(${rotateY})`,
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* Content Section */}
-          <div className="p-8 space-y-4">
-            <motion.h3
-              variants={textVariants}
-              className="text-2xl font-bold text-gray-800"
-            >
-              {achievements[currentIndex].title}
-            </motion.h3>
-            <motion.p
-              variants={textVariants}
-              className="text-gray-600 leading-relaxed"
-            >
-              {achievements[currentIndex].description}
-            </motion.p>
+          {/* Content */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-black mb-2">{testimonials[activeIndex].name}</h3>
+              <p className="text-sm text-gray-500 mb-4">{testimonials[activeIndex].designation}</p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex} // Ensure animation restarts on index change
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.05,
+                      },
+                    },
+                  }}
+                  className="text-lg text-gray-700 leading-relaxed"
+                >
+                  {testimonials[activeIndex].quote.split(" ").map((word, index) => (
+                    <motion.span key={index} variants={textAnimation} className="inline-block mr-1">
+                      {word}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Arrow Buttons */}
+            <div className="flex gap-4 pt-12 md:pt-0">
+              <button
+                onClick={() => updateTestimonial(-1)}
+                className="w-7 h-7 rounded-full bg-black flex items-center justify-center hover:bg-blue-500 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+              </button>
+              <button
+                onClick={() => updateTestimonial(1)}
+                className="w-7 h-7 rounded-full bg-black flex items-center justify-center hover:bg-blue-500 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+                  <path d="M10 6L8.59 7.41l4.58 4.59L10 18l6-6z" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Navigation Controls */}
-      <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-4">
-        <motion.button
-          onClick={handlePrev}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-3 rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-gray-100"
-        >
-          <ChevronLeft className="w-6 h-6 text-gray-800" />
-        </motion.button>
-
-        <motion.button
-          onClick={handleNext}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-3 rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-gray-100"
-        >
-          <ChevronRight className="w-6 h-6 text-gray-800" />
-        </motion.button>
-      </div>
-
-      {/* Progress Dots */}
-      <div className="flex justify-center gap-2 mt-6">
-        {achievements.map((_, index) => (
-          <motion.button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-blue-600" : "bg-gray-300"
-            }`}
-            whileHover={{ scale: 1.2 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          />
-        ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default AchievementCarousel;
+export default AnimatedTestimonials;

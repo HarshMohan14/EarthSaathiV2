@@ -38,7 +38,7 @@ const Tailored = () => {
     >
       {/* Optimized Background */}
       <motion.div
-        className="fixed inset-0 bg-[url('/energy-pattern.jpg')] bg-cover bg-center"
+        // className="fixed inset-0 bg-[url('/energy-pattern.jpg')] bg-cover bg-center"
         style={{
           scale: useTransform(scrollYProgress, [0, 1], [1, 1.02]), // Reduced scale
         }}
@@ -52,10 +52,10 @@ const Tailored = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-4">
+          <h1 className="text-2xl font-bold md:text-7xl text-[#0C1F5E] mb-4">
             Powering Sustainable Solutions
           </h1>
-          <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
+          <p className="text-xl md:text-4xl text-[#0C1F5E]">
             Connecting innovative energy solutions to protect our planet's atmosphere
           </p>
         </motion.div>

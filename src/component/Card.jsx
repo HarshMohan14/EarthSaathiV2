@@ -26,14 +26,14 @@ const Card = ({ elem }) => {
       variants={cardVariants} // Animation variants for each card
     >
       <figure>
-        <img src={elem.image} alt={elem.title} />
+        <img className="" src={elem.image} alt={elem.title} />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
           {elem.title}
           <Icon />
         </h2>
-        <p>{elem.description}</p>
+   
         <div className="card-actions justify-end">
           <button className="btn btn-soft btn-success">Learn More</button>
         </div>
