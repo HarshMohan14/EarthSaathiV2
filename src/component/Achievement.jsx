@@ -62,7 +62,7 @@ const AchievementCarousel = () => {
   };
 
   return (
-    <div className="relative max-w-4xl mx-auto px-4">
+    <div className="relative max-w-4xl mx-auto px-4 py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
