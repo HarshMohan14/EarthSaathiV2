@@ -1,8 +1,21 @@
-import { motion } from "framer-motion";
-import React from "react";
-import earth from "../../public/earthsmoke.gif"
+import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef } from "react";
+import earth from "../../public/earthsmoke.gif";
+
 const Hero = () => {
-  // Animation variants for text and button
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax motion values
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
+  const scaleBg = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const opacityOverlay = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Existing animation variants
   const textVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: {
@@ -22,22 +35,39 @@ const Hero = () => {
   };
 
   return (
-    <motion.div
+    <motion.div 
+      ref={ref}
       className="hero min-h-screen relative overflow-hidden"
-      style={{
-        backgroundImage: `url(${earth})`, // Replace with your pollution-themed GIF URL
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Semi-transparent overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      {/* Parallax Background */}
+      <motion.div 
+        className="absolute inset-0"
+        style={{
+          y: yBg,
+          scale: scaleBg
+        }}
+      >
+        <img
+          src={earth}
+          alt="Earth background"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
 
-      <div className="hero-content text-neutral-content text-center relative z-10">
+      {/* Overlay with parallax opacity */}
+      <motion.div 
+        className="absolute inset-0 bg-black/50"
+        style={{ opacity: opacityOverlay }}
+      />
+
+      {/* Parallax Content */}
+      <motion.div 
+        className="hero-content text-neutral-content text-center relative z-10"
+        style={{ y: yText }}
+      >
         <motion.div
           className="max-w-4xl"
           initial="hidden"
@@ -71,7 +101,7 @@ const Hero = () => {
             Learn More
           </motion.button>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

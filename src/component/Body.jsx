@@ -1,4 +1,6 @@
-import React from 'react'
+import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import Lenis from '@studio-freight/lenis'
 import Hero from './Hero'
 import Tailored from './Tailored'
 import Innovation from './Innovation'
@@ -6,6 +8,22 @@ import Contact from './Contact'
 import AchievementCarousel from './Achievement'
 
 const Body = () => {
+  // Initialize Lenis for smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      smoothWheel: true,
+      smoothTouch: false
+    })
+
+    const raf = (time) => {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+    return () => lenis.destroy()
+  }, [])
+
   return (
     <div>
       <Hero />

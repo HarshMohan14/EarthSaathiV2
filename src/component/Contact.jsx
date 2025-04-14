@@ -1,17 +1,50 @@
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Contact = () => {
+  const ref = useRef(null);
+
+  // Scroll-based transformations for heading
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"], // Trigger animations when the section enters/exits the viewport
+  });
+
+  const yHeading = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-4 bg-base-200">
-      {/* Heading Section */}
-      <h2 className="font-semibold text-4xl mb-4 text-center">Get in Touch</h2>
-      <p className="text-lg text-center mb-8 max-w-xl">
+    <motion.div
+      ref={ref}
+      className="flex flex-col justify-center items-center py-10 px-4 bg-base-200 relative overflow-hidden"
+    >
+      {/* Heading Section with Parallax Effect */}
+      <motion.h2
+        className="font-semibold text-4xl mb-4 text-center"
+        style={{ y: yHeading }}
+      >
+        Get in Touch
+      </motion.h2>
+      <motion.p
+        className="text-lg text-center mb-8 max-w-xl"
+        style={{ y: yHeading }}
+      >
         Ready to explore how EarthSaathi can benefit your business? Contact us
         today for more information, partnerships, or consulting.
-      </p>
+      </motion.p>
 
-      {/* Form Section */}
-      <form className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 space-y-6">
+      {/* Form Section with Animation from Bottom */}
+      <motion.form
+        className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 space-y-6"
+        initial={{ opacity: 0, y: 100 }} // Start off-screen (below viewport)
+        whileInView={{ opacity: 1, y: 0 }} // Animate to its natural position
+        transition={{
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+          duration: 0.8,
+        }}
+        viewport={{ once: true }} // Trigger animation only once
+      >
         {/* Name Field */}
         <div className="flex flex-col">
           <label htmlFor="name" className="text-sm font-medium text-gray-700 mb-1">
@@ -58,8 +91,8 @@ const Contact = () => {
         <button type="submit" className="btn btn-primary w-full">
           Send Message
         </button>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 };
 
