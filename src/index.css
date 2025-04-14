@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+.react-tooltip {
+  z-index: 9999 !important;
+  max-width: 300px;
+  padding: 1rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
