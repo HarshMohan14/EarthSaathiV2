@@ -1,81 +1,113 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { solutions } from "../utils/tailored";
 import Card from "./Card";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.7 }
-  },
-};
-
 const Tailored = () => {
-  const [tailored, setTailored] = useState(solutions);
   const ref = useRef(null);
   
-  // Parallax scroll setup
+  // Scroll progress with optimized smoothing
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
+    smooth: 1.5 // Increased smoothness
   });
 
-  // Parallax motion values
-  const yTitle = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const yCards = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  // Simplified transforms
+  const cardsY = useTransform(scrollYProgress, [0, 1], ["0%", "-2%"]); // Reduced movement
+
+  // Card animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: {
+        type: "tween",
+        ease: "easeOut",
+        duration: 2,
+      }
+    }
+  };
 
   return (
     <motion.div 
       ref={ref}
-      className="py-20 relative overflow-hidden"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "100px" }}
+      className="relative min-h-screen overflow-hidden"
     >
-      <div className="flex flex-col mx-auto max-w-7xl items-center">
-        <motion.div 
-          className="text-center"
-          style={{ y: yTitle }}
+      {/* Optimized Background */}
+      <motion.div
+        className="fixed inset-0 bg-[url('/energy-pattern.jpg')] bg-cover bg-center"
+        style={{
+          scale: useTransform(scrollYProgress, [0, 1], [1, 1.02]), // Reduced scale
+        }}
+      />
+
+      <div className="relative z-10 container mx-auto px-4 py-32">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <motion.h1 
-            className="font-semibold text-4xl winky-rough-h1 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Tailored Solutions for Every Industry
-          </motion.h1>
-          <motion.h2 
-            className="mt-2 text-lg text-gray-600"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            We provide innovative sustainable energy solutions across various industries
-          </motion.h2>
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-4">
+            Powering Sustainable Solutions
+          </h1>
+          <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
+            Connecting innovative energy solutions to protect our planet's atmosphere
+          </p>
         </motion.div>
 
+        {/* Card Grid */}
         <motion.div 
-          className="flex flex-wrap mt-4 gap-x-8 gap-y-4 pb-32"
-          style={{ 
-            y: useTransform(scrollYProgress, [0, 1], ["0%", "10%"]) // Reduce parallax distance
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ 
-            once: true, 
-            amount: 0.1, // Trigger when 40% visible
-            margin: "0px 0px -200px 0px" // Negative bottom margin
-          }}
-          
-          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          style={{ y: cardsY }}
         >
-          {tailored.map((elem) => (
-            <Card key={elem.title} elem={elem} />
+          {solutions.map((elem, index) => (
+            <motion.div
+              key={elem.title}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ 
+                once: true,
+                margin: "0px 0px -200px 0px",
+                amount: 0.1 // Trigger earlier
+              }}
+              custom={index}
+              transition={{ delay: index * 0.05 }}
+            >
+              <Card elem={elem} />
+            </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* Simplified Energy Beams */}
+      {[...Array(2)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute h-[1px] bg-gradient-to-r from-cyan-400/20 to-emerald-400/20"
+          initial={{
+            width: "30%",
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            opacity: 0
+          }}
+          animate={{
+            opacity: [0, 0.3, 0],
+            x: ["-50%", "50%"]
+          }}
+          transition={{
+            duration: Math.random() * 4 + 4,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ translateX: "-50%" }}
+        />
+      ))}
     </motion.div>
   );
 };

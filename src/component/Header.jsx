@@ -5,7 +5,7 @@ const Header = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [activeTab, setActiveTab] = useState("Home"); // Track the active tab
 
-  const tabs = ["Home", "About", "Solutions", "Technology", "Case Studies"];
+  const tabs = ["Home", "About", "Solutions", "News And Media","Project" ,"Carrer"];
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);

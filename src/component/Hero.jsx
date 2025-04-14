@@ -37,7 +37,7 @@ const Hero = () => {
   return (
     <motion.div 
       ref={ref}
-      className="hero min-h-screen relative overflow-hidden"
+      className="hero min-h-screen z-8 relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}

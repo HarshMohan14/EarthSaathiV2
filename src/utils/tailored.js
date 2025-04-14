@@ -36,10 +36,4 @@ export const solutions = [
         icon: Pizza,
         image: "https://images.unsplash.com/photo-1512813759302-a44af29da3c1"
     },
-    {
-        title: "Food Waste Producers",
-        description: "Turn waste into energy by partnering with EarthSaathi for effective waste management solutions that power communities.",
-        icon: Trash2,
-        image: "https://images.unsplash.com/photo-1579618215542-2ed5e10b65ed"
-    }
 ];
