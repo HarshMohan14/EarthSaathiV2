@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import bpcl from "../../public/bpcl.jpg";
 import shell from "../../public/shell.jpg";
-
+import aic from "../../public/AIC.jpg"
 const achievements = [
   {
     title: "Shell E4",
@@ -16,6 +16,12 @@ const achievements = [
     description:
       "EarthSaathi has been selected as one of the finalists in the BPCL Innovation Award 2023 Final Round! 🚀 The competition has been fierce, with an overwhelming response from innovators in the field of energy and sustainability.",
     image: shell,
+  },
+  {
+    title: "Incubated by AIC Sangam Innovation Foundation. Received the grant of ₹20 lakhs",
+    description:
+      "EarthSaathi is among the selected ventures supported by Amaly Legacy's Climate and Social Innovation Studio. This incredible opportunity will help us design Proof of Concepts (PoCs) and aid our market entry/distribution efforts. We’re excited to create social and environmental impact in rural communities, particularly in areas like community development, forestry, agriculture, and value-added processing in East Africa.",
+    image: aic,
   },
 ];
 
