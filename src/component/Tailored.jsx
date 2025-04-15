@@ -52,7 +52,7 @@ const Tailored = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <h1 className="text-2xl font-semibold md:text-7xl text-[#0C1F5E] mb-4">
+          <h1 className="text-2xl font-semibold md:text-6xl text-[#0C1F5E] mb-4">
             Powering Sustainable Solutions
           </h1>
           <p className="text-xl md:text-4xl text-[#0C1F5E]">

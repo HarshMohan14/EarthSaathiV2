@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link,useLocation  } from "react-router";
 
 const Header = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const [activeTab, setActiveTab] = useState("Home");
+  const location = useLocation();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "lemonade");
+  const [activeTab, setActiveTab] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   console.log("Drawer open",drawerOpen)
+  
 
   const tabs = [
     { text: "Home", path: "/" },
     { text: "About", path: "/about" },
     { text: "Solutions", path: "/solutions" },
-    { text: "News And Media", path: "/news-and-media" },
+    { text: "Research&Insights", path: "/research-and-insights" },
     { text: "Project", path: "/project" },
-    { text: "Carrer", path: "/carrer" },
+    { text: "Career ", path: "/career " },
   ];
-
+  useEffect(() => {
+    const currentTab = tabs.find(tab => location.pathname === tab.path);
+    if (currentTab) {
+      setActiveTab(currentTab.text);
+    }
+  }, [location.pathname]);
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "abyss" : "light");
+    setTheme(theme === "lemonade" ? "abyss" : "lemonade");
   };
 
   return (

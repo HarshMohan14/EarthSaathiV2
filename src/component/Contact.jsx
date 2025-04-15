@@ -19,7 +19,7 @@ const Contact = () => {
     >
       {/* Heading Section with Parallax Effect */}
       <motion.h2
-        className="text-2xl font-semibold md:text-7xl text-[#0C1F5E] text-center"
+        className="text-2xl font-semibold md:text-6xl text-[#0C1F5E] text-center"
         style={{ y: yHeading }}
       >
         Get in Touch

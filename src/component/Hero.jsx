@@ -75,7 +75,7 @@ const Hero = () => {
           variants={textVariants}
         >
           <motion.h1
-            className="mb-5 text-2xl lg:text-7xl font-semibold drop-shadow-lg"
+            className="mb-5 text-2xl lg:text-6xl font-semibold drop-shadow-lg"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
