@@ -6,7 +6,7 @@ import RootLayout from "./layout/RootLayout";
 import Body from "./component/Body";
 import ErrorB from "./component/ErrorB";
 import earthData from "../public/earth-animation.json";
-import AboutHero from "./component/AboutHero";
+import About from "./pages/About";
 
 const LoadingScreen = () => {
   const defaultOptions = {
@@ -119,7 +119,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/about',
-        element: <AboutHero />
+        element: <About />
       }
     ],
   },

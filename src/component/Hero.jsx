@@ -75,30 +75,33 @@ const Hero = () => {
           variants={textVariants}
         >
           <motion.h1
-            className="mb-5 text-5xl font-bold drop-shadow-lg"
+            className="mb-5 text-2xl lg:text-7xl font-semibold drop-shadow-lg"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            Transforming Waste into Sustainable Energy Solutions
+          Turning Waste & Emissions Into Clean Fuel
+
           </motion.h1>
 
           <motion.p
-            className="mb-5 text-xl"
+            className="mb-5 text-xl md:text-4xl"
             initial="hidden"
             animate="visible"
             variants={textVariants}
             transition={{ delay: 0.2 }}
           >
-            Join EarthSaathi in Revolutionizing the Energy Landscape through Innovative Bio-CNG Solutions
+            We develop energy-efficient CO2 capture and biogas upgrading technologies to power industries and communities sustainably.
+
           </motion.p>
 
           <motion.button
-            className="btn btn-primary"
+            className="btn btn-primary "
             variants={buttonVariants}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            Learn More
+           Explore Our Technology
+
           </motion.button>
         </motion.div>
       </motion.div>

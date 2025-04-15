@@ -2,12 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 
 const polluted = "/pollutedEarth.jpg";
 const clean = "/cleanEarth.jpg";
-const CANVAS_RADIUS = 60;
+const CANVAS_RADIUS = 120;
 
 const AboutHero = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const timeoutId = useRef(null);
 
   // Set canvas dimensions based on container
   useEffect(() => {
@@ -24,8 +25,8 @@ const AboutHero = () => {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  // Draw image maintaining aspect ratio
-  useEffect(() => {
+  // Draw polluted image maintaining aspect ratio
+  const drawPolluted = () => {
     const canvas = canvasRef.current;
     if (!canvas || !dimensions.width) return;
 
@@ -36,11 +37,11 @@ const AboutHero = () => {
     img.onload = () => {
       canvas.width = dimensions.width;
       canvas.height = dimensions.height;
-      
+
       // Calculate aspect ratio
       const imgRatio = img.width / img.height;
       const containerRatio = dimensions.width / dimensions.height;
-      
+
       let drawWidth, drawHeight, offsetX, offsetY;
 
       if (imgRatio > containerRatio) {
@@ -58,8 +59,15 @@ const AboutHero = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     };
+  };
+
+  // Redraw polluted image on mount and when dimensions change
+  useEffect(() => {
+    drawPolluted();
+    // eslint-disable-next-line
   }, [dimensions]);
 
+  // Handle erasing and reset after 3 seconds
   const handleMouseMove = (e) => {
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
@@ -72,7 +80,20 @@ const AboutHero = () => {
     ctx.arc(x, y, CANVAS_RADIUS, 0, 2 * Math.PI);
     ctx.fill();
     ctx.globalCompositeOperation = "source-over";
+
+    // Reset the timer
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+    timeoutId.current = setTimeout(() => {
+      drawPolluted();
+    }, 3000);
   };
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) clearTimeout(timeoutId.current);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen w-full relative bg-black" ref={containerRef}>

@@ -74,7 +74,7 @@ export default function SuccessCarousel() {
     <div className="bg-[#f1f6ff] py-10 flex flex-col items-center">
      <AnimatedHeadline />
       
-      <div className="relative w-full max-w-7xl overflow-hidden">
+      <div className="relative w-full py-10 max-w-7xl overflow-hidden">
         {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
@@ -130,7 +130,7 @@ export default function SuccessCarousel() {
                 </div>
                 
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">
+                  <h3 className="text-xl font-bold text-[#0C1F5E] mb-3">
                     {post.title}
                   </h3>
                   <p className="text-gray-600 text-base mb-4 flex-1">

@@ -29,7 +29,7 @@ const Card = ({ elem }) => {
         <img className="" src={elem.image} alt={elem.title} />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">
+        <h2 className="card-title text-xs md:text-xl text-[#0C1F5E]">
           {elem.title}
           <Icon />
         </h2>

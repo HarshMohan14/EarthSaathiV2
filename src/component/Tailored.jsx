@@ -34,7 +34,7 @@ const Tailored = () => {
   return (
     <motion.div 
       ref={ref}
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen overflow-hidden py-10"
     >
       {/* Optimized Background */}
       <motion.div
@@ -52,7 +52,7 @@ const Tailored = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <h1 className="text-2xl font-bold md:text-7xl text-[#0C1F5E] mb-4">
+          <h1 className="text-2xl font-semibold md:text-7xl text-[#0C1F5E] mb-4">
             Powering Sustainable Solutions
           </h1>
           <p className="text-xl md:text-4xl text-[#0C1F5E]">
@@ -62,7 +62,7 @@ const Tailored = () => {
 
         {/* Card Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6"
           style={{ y: cardsY }}
         >
           {solutions.map((elem, index) => (
@@ -71,6 +71,7 @@ const Tailored = () => {
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"
+               className="mx-auto w-full max-w-sm"
               viewport={{ 
                 once: true,
                 margin: "0px 0px -200px 0px",

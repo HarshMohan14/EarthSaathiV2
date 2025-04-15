@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import shaurya from "../../public/shaurya.jpg"
 const testimonials = [
   {
-    quote: "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
-    name: "Tamar Mendelson",
-    designation: "Restaurant Critic",
-    src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    quote: "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
-    name: "Joe Charlescraft",
-    designation: "Frequent Visitor",
-    src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
-  },
-  {
-    quote: "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
-    name: "Martina Edelweist",
-    designation: "Satisfied Customer",
-    src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+    quote: "Dr. Shaurya Mohan is a chemical engineer, climate strategist, and clean energy innovator with over 5 years of experience in R&D, industrial consulting, and energy transition planning. As a Ph.D. from ICT Mumbai, her work focuses on developing high-impact, low-cost decarbonization technologies for industries and waste systems.",
+    name: "Dr. Shaurya Mohan",
+    designation: "CEO & Co-Founder, EarthSaathi",
+    src: shaurya
   },
 ];
 
@@ -42,8 +30,8 @@ const AnimatedTestimonials = () => {
   };
 
   return (
-    <div className="flex justify-center flex-col items-center gap-12 min-h-screen ">
-        <h1 className="text-2xl md:text-7xl text-[#0C1F5E]">Meet Our Teams</h1>
+    <div className="flex justify-center flex-col items-center gap-12 min-h-screen py-10 ">
+        <h1 className="text-2xl md:text-7xl font-semibold text-[#0C1F5E]">Meet Our Teams</h1>
       <div className="max-w-7xl p-8">
         <div className="grid gap-20 md:grid-cols-2">
           {/* Image Container */}
@@ -76,8 +64,8 @@ const AnimatedTestimonials = () => {
           {/* Content */}
           <div className="flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-bold text-black mb-2">{testimonials[activeIndex].name}</h3>
-              <p className="text-sm text-gray-500 mb-4">{testimonials[activeIndex].designation}</p>
+              <h3 className="text-xl font-bold text-[#01DC98]  mb-2">{testimonials[activeIndex].name}</h3>
+              <p className="text-sm font-semibold text-[#0C1F5E] mb-4">{testimonials[activeIndex].designation}</p>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex} // Ensure animation restarts on index change

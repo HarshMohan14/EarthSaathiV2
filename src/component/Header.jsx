@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router"; // Corrected import
+import { Link } from "react-router";
 
 const Header = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [activeTab, setActiveTab] = useState("Home");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  console.log("Drawer open",drawerOpen)
 
   const tabs = [
     { text: "Home", path: "/" },
@@ -25,58 +27,140 @@ const Header = () => {
   };
 
   return (
-    <div className="navbar fixed z-20 bg-base-100 shadow-sm">
-      <motion.div
-        whileTap={{
-          scale: 1.1,
-        }}
-        className="navbar-start cursor-pointer"
-      >
-        <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-36" />
-      </motion.div>
+    <div>
+      {/* Drawer for mobile */}
+      <div className="drawer drawer-end lg:hidden z-50">
+        <input
+          id="mobile-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={drawerOpen}
+      
+        />
+        <div className="drawer-content">
+          {/* Navbar */}
+          <div className="navbar fixed z-20 bg-base-100 shadow-sm w-full">
+            <motion.div
+              whileTap={{ scale: 1.1 }}
+              className="navbar-start cursor-pointer"
+            >
+              <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-36" />
+            </motion.div>
 
-      {/* Center Tabs with Cool Animation */}
-      <div className="navbar-center hidden lg:flex">
-        <div className="flex space-x-4 relative">
-          {tabs.map((tab) => (
-            <Link to={tab.path} key={tab.text}>
-              <button
-                onClick={() => setActiveTab(tab.text)}
-                className={`relative px-4 py-2 rounded-lg font-medium transition ${
-                  activeTab === tab.text
-                    ? "text-white"
-                    : "text-gray-500 hover:text-gray-300"
-                }`}
+            {/* Hamburger button for mobile */}
+            <div className="navbar-end flex items-center">
+              <label
+                htmlFor="mobile-drawer"
+                className="btn btn-square btn-ghost lg:hidden"
+                onClick={() => setDrawerOpen(!drawerOpen)}
               >
-                {activeTab === tab.text && (
-                  <motion.div
-                    layoutId="underline"
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg z-0"
-                    transition={{
-                      type: "spring",
-                      bounce: 0.3,
-                      duration: 0.6,
-                    }}
-                  />
-                )}
-                <span className="relative cursor-pointer z-10">{tab.text}</span>
-              </button>
-            </Link>
-          ))}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </label>
+              <label className="swap swap-rotate ml-2">
+                <input
+                  type="checkbox"
+                  onChange={toggleTheme}
+                  className="toggle"
+                  checked={theme === "abyss"}
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="drawer-side">
+          <label
+            htmlFor="mobile-drawer"
+            className="drawer-overlay"
+            onClick={() => setDrawerOpen(false)}
+          ></label>
+          <ul className="menu p-4 w-64 min-h-full bg-base-200 text-base-content">
+            <li className="mb-4">
+              <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-32 mx-auto" />
+            </li>
+            {tabs.map((tab) => (
+              <li key={tab.text}>
+                <Link
+                  to={tab.path}
+                  onClick={() => {
+                    setActiveTab(tab.text);
+                    setDrawerOpen(false);
+                  }}
+                >
+                  {tab.text}
+                </Link>
+              </li>
+            ))}
+            <li className="mt-4">
+              <a className="btn w-full" onClick={() => setDrawerOpen(false)}>
+                Contact Us
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      {/* Add the Theme Toggle Button */}
-      <div className="navbar-end">
-        <label className="swap swap-rotate">
-          <input
-            type="checkbox"
-            onChange={toggleTheme}
-            className="toggle"
-            checked={theme === "abyss"}
-          />
-        </label>
-        <a className="btn ml-4">Contact Us</a>
+      {/* Desktop Navbar */}
+      <div className="navbar fixed z-50 bg-base-100 shadow-sm w-full hidden lg:flex">
+        <motion.div
+          whileTap={{ scale: 1.1 }}
+          className="navbar-start cursor-pointer"
+        >
+          <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-32" />
+        </motion.div>
+
+        {/* Center Tabs with Cool Animation */}
+        <div className="navbar-center flex">
+          <div className="flex space-x-4 relative">
+            {tabs.map((tab) => (
+              <Link to={tab.path} key={tab.text}>
+                <button
+                  onClick={() => setActiveTab(tab.text)}
+                  className={`relative px-4 py-2 rounded-lg font-medium transition ${
+                    activeTab === tab.text
+                      ? "text-white"
+                      : "text-gray-500 hover:text-gray-300"
+                  }`}
+                >
+                  {activeTab === tab.text && (
+                    <motion.div
+                      layoutId="underline"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg z-0"
+                      transition={{
+                        type: "spring",
+                        bounce: 0.3,
+                        duration: 0.6,
+                      }}
+                    />
+                  )}
+                  <span className="relative z-10">{tab.text}</span>
+                </button>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Theme Toggle and Contact Button */}
+        <div className="navbar-end">
+          <label className="swap swap-rotate">
+            <input
+              type="checkbox"
+              onChange={toggleTheme}
+              className="toggle"
+              checked={theme === "abyss"}
+            />
+          </label>
+          <a className="btn ml-4">
+            Contact Us
+          </a>
+        </div>
       </div>
     </div>
   );
