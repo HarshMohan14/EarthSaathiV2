@@ -123,16 +123,16 @@ const Header = () => {
               <Link to={tab.path} key={tab.text}>
                 <button
                   onClick={() => setActiveTab(tab.text)}
-                  className={`relative px-4 py-2 rounded-lg font-medium transition ${
+                  className={`relative px-4 py-2 rounded-lg font-medium cursor-pointer transition ${
                     activeTab === tab.text
                       ? "text-white"
-                      : "text-gray-500 hover:text-gray-300"
+                      : "text-[#0C1F5E] hover:text-[#01DC98]"
                   }`}
                 >
                   {activeTab === tab.text && (
                     <motion.div
                       layoutId="underline"
-                      className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg z-0"
+                      className="absolute inset-0 bg-[#01DC98] rounded-lg z-0"
                       transition={{
                         type: "spring",
                         bounce: 0.3,
