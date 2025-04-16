@@ -22,24 +22,20 @@ const Card = ({ elem }) => {
 
   return (
     <motion.div
-      className="card bg-base-100 rounded-2xl w-96 shadow-2xl"
-      variants={cardVariants} // Animation variants for each card
+      className="card bg-base-100 rounded-2xl w-80"
+      variants={cardVariants}
     >
-      <figure>
-        <img className="" src={elem.image} alt={elem.title} />
+      {/* Perfect circle image container */}
+      <figure className="w-48 h-48 rounded-full overflow-hidden mx-auto mt-4">
+        <img 
+          className="w-full h-full object-cover" 
+          src={elem.image} 
+          alt={elem.title} 
+        />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title  text-[#0C1F5E]">
-          {elem.title}
-          <Icon />
-        </h2>
-   
-        <div className="  card-actions justify-end">
-          <button className="btn btn-soft btn-success">Learn More</button>
-        </div>
-      </div>
     </motion.div>
   );
 };
+
 
 export default Card;

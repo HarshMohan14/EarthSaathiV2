@@ -1,115 +1,79 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { solutions } from "../utils/tailored";
 import Card from "./Card";
 
 const Tailored = () => {
-  const ref = useRef(null);
-  
-  // Scroll progress with optimized smoothing
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-    smooth: 1.5 // Increased smoothness
-  });
+  const containerRef = useRef(null);
+  const controls = useAnimation();
+  const [contentWidth, setContentWidth] = useState(0);
 
-  // Simplified transforms
-  const cardsY = useTransform(scrollYProgress, [0, 1], ["0%", "-2%"]); // Reduced movement
-
-  // Card animation variants
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: {
-        type: "tween",
-        ease: "easeOut",
-        duration: 2,
-      }
+  useEffect(() => {
+    if (containerRef.current) {
+      // Calculate exact width of single set of cards including gaps
+      const container = containerRef.current;
+      const firstChild = container.children[0];
+      const gap = parseInt(getComputedStyle(container).gap) || 0;
+      
+      setContentWidth(
+        (firstChild.offsetWidth + gap) * solutions.length - gap
+      );
     }
-  };
+  }, [solutions]);
+
+  useEffect(() => {
+    if (contentWidth === 0) return;
+
+    const finalX = -contentWidth;
+    
+    controls.start({
+      x: [0, finalX],
+      transition: {
+        repeat: Infinity,
+        ease: "linear",
+        duration: 15,
+      },
+    });
+  }, [contentWidth, controls]);
 
   return (
-    <motion.div 
-      ref={ref}
-      className="relative min-h-screen overflow-hidden py-10"
-    >
-      {/* Optimized Background */}
-      <motion.div
-        // className="fixed inset-0 bg-[url('/energy-pattern.jpg')] bg-cover bg-center"
-        style={{
-          scale: useTransform(scrollYProgress, [0, 1], [1, 1.02]), // Reduced scale
-        }}
-      />
-
-      <div className="relative z-10 container mx-auto px-4 py-32">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-        >
-          <h1 className="text-[#0C1F5E] mb-4">
+    <div className="relative  overflow-hidden py-10">
+      <div className="relative z-10 container mx-auto my-auto px-4 py-12">
+        {/* ... Header remains unchanged ... */}
+        <div className="text-center mb-16">
+          <h1 className="text-[#0C1F5E] mb-4 text-4xl font-bold">
             Powering Sustainable Solutions
           </h1>
-          <h2 className="text-[#0C1F5E]">
-            Connecting innovative energy solutions to protect our planet's atmosphere
+          <h2 className="text-[#0C1F5E] text-xl md:text-2xl">
+            Connecting innovative energy solutions to protect our planet's
+            atmosphere
           </h2>
-        </motion.div>
-
-        {/* Card Grid */}
-        <motion.div 
-          className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6"
-          style={{ y: cardsY }}
-        >
-          {solutions.map((elem, index) => (
-            <motion.div
-              key={elem.title}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-               className="mx-auto w-full max-w-sm"
-              viewport={{ 
-                once: true,
-                margin: "0px 0px -200px 0px",
-                amount: 0.1 // Trigger earlier
-              }}
-              custom={index}
-              transition={{ delay: index * 0.05 }}
-            >
-              <Card elem={elem} />
-            </motion.div>
-          ))}
-        </motion.div>
+        </div>
+        {/* Card train container */}
+  {/* Card train container */}
+  <div className="overflow-hidden py-8 relative">
+          <motion.div
+            ref={containerRef}
+            animate={controls}
+            className="flex gap-2 w-max"
+            style={{
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
+            }}
+          >
+            {/* Triple duplication for seamless looping */}
+            {[...solutions, ...solutions, ...solutions].map((elem, index) => (
+              <div 
+                key={`${elem.title}-${index}`}
+                className="w-80 flex-shrink-0"
+              >
+                <Card elem={elem} />
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
-
-      {/* Simplified Energy Beams */}
-      {[...Array(2)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute h-[1px] bg-gradient-to-r from-cyan-400/20 to-emerald-400/20"
-          initial={{
-            width: "30%",
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            opacity: 0
-          }}
-          animate={{
-            opacity: [0, 0.3, 0],
-            x: ["-50%", "50%"]
-          }}
-          transition={{
-            duration: Math.random() * 4 + 4,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{ translateX: "-50%" }}
-        />
-      ))}
-    </motion.div>
+    </div>
   );
 };
 
