@@ -117,12 +117,12 @@ const AboutHero = () => {
       {/* Overlay content */}
       <div className="relative z-30 min-h-screen flex items-center justify-center pointer-events-none">
         <div className="text-center max-w-2xl px-4">
-          <h1 className="mb-5 text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500">
+          <h1 className="mb-5   bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500">
             Our Planet's Journey
           </h1>
-          <p className="mb-5 text-lg md:text-xl text-white">
+          <h2 className="mb-5  text-white">
             Move your mouse over the image to reveal the transformation from pollution to preservation.
-          </p>
+          </h2>
         </div>
       </div>
     </div>

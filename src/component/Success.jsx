@@ -11,14 +11,14 @@ const posts = [
       title: "Shell E4",
       description:
         "After a multi-level screening process, Shell E4 has selected 5 innovative startups to join the boot camp journey for the Net Zero Challenge. Presenting the Top 5 selected startups: Apratima Biosolutions Pvt Ltd, Rechain Technologies Pvt Ltd, EarthSaathi, Low Cost Indigeneous CO2 Electrolyser and PrakREti.",
-      image: bpcl,
+      image: shell,
       date: "2024-03-01",
     },
     {
       title: "BPCL Innovation Award 2023",
       description:
         "EarthSaathi has been selected as one of the finalists in the BPCL Innovation Award 2023 Final Round! 🚀 The competition has been fierce, with an overwhelming response from innovators in the field of energy and sustainability.",
-      image: shell,
+      image: bpcl,
       date: "2023-12-15",
     },
     {
@@ -81,7 +81,7 @@ export default function SuccessCarousel() {
           className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-sm shadow-lg rounded-full p-3 hover:bg-blue-100 transition"
           aria-label="Previous"
         >
-          <span className="text-2xl text-gray-700">&#8592;</span>
+          <span className=" text-gray-700">&#8592;</span>
         </button>
         
         <button
@@ -89,7 +89,7 @@ export default function SuccessCarousel() {
           className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 backdrop-blur-sm shadow-lg rounded-full p-3 hover:bg-blue-100 transition"
           aria-label="Next"
         >
-          <span className="text-2xl text-gray-700">&#8594;</span>
+          <span className=" text-gray-700">&#8594;</span>
         </button>
 
         {/* Animated Carousel Container */}
@@ -129,11 +129,11 @@ export default function SuccessCarousel() {
                   </motion.a>
                 </div>
                 
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold text-[#0C1F5E] mb-3">
+                <div className="p-6 flex  flex-col flex-1">
+                  <h3 className=" openSans font-semibold text-[#0C1F5E] mb-3">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 text-base mb-4 flex-1">
+                  <p className="text-gray-600 poppins text-base mb-4 flex-1">
                     {post.description}
                   </p>
                   <div className="flex items-center text-gray-500 text-sm mb-4">
@@ -142,7 +142,8 @@ export default function SuccessCarousel() {
                   </div>
                   <a
                     href="#"
-                    className="ml-auto px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors"
+                    className="ml-auto px-6 py-2 bg-blue-500 text-white rounded-full text-sm 
+                     hover:bg-blue-600 transition-colors"
                   >
                     Read More
                   </a>

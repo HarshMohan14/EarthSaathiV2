@@ -148,13 +148,13 @@ const SolutionHero = () => {
           transition={{ duration: 1, delay: 0.2, type: "spring" }}
           className="w-full md:w-1/2 text-center md:text-left"
         >
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#0C1F5E] mb-6 leading-tight drop-shadow">
+          <h1 className=" text-[#0C1F5E] mb-6 leading-tight drop-shadow">
             <span className="text-[#01DC98]">Our Solutions</span> Nurture a Greener Tomorrow
           </h1>
-          <p className="mb-6 text-lg md:text-xl text-[#0C1F5E]/80 font-medium max-w-xl mx-auto md:mx-0">
+          <p className="mb-6  text-[#0C1F5E]/80  max-w-xl mx-auto md:mx-0">
             Just as a seed becomes a tree, our technology helps industries and communities grow a sustainable future—removing CO₂, recycling waste, and restoring balance to our planet.
           </p>
-          <ul className="mb-8 text-[#01DC98] font-semibold space-y-2 text-lg md:text-xl max-w-lg mx-auto md:mx-0">
+          <ul className="mb-8 text-[#01DC98] space-y-2 max-w-lg mx-auto md:mx-0">
             <li>🌱 Millions of tons of CO₂ removed from the atmosphere</li>
             <li>♻️ Waste transformed into clean energy and biochar</li>
             <li>👩‍🔬 New opportunities for communities and the planet</li>
@@ -163,7 +163,7 @@ const SolutionHero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             href="#solutions"
-            className="btn btn-lg bg-[#01DC98] text-[#0C1F5E] font-bold border-none shadow-lg hover:bg-[#0C1F5E] hover:text-white transition"
+            className="btn btn-lg bg-[#01DC98] text-[#0C1F5E] border-none shadow-lg hover:bg-[#0C1F5E] hover:text-white transition"
           >
             See How We Make a Difference
           </motion.a>

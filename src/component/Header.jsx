@@ -17,6 +17,7 @@ const Header = () => {
     { text: "Research&Insights", path: "/research-and-insights" },
     { text: "Project", path: "/project" },
     { text: "Career ", path: "/career " },
+    { text: "Community ", path: "/community " },
   ];
   useEffect(() => {
     const currentTab = tabs.find(tab => location.pathname === tab.path);
@@ -130,7 +131,7 @@ const Header = () => {
               <Link to={tab.path} key={tab.text}>
                 <button
                   onClick={() => setActiveTab(tab.text)}
-                  className={`relative poppins-regular px-4 py-2 rounded-lg font-medium cursor-pointer transition ${
+                  className={`relative text-sm font-semibold  px-4 py-2 rounded-lg openSans  cursor-pointer transition ${
                     activeTab === tab.text
                       ? "text-white"
                       : "text-[#0C1F5E] hover:text-[#01DC98]"
@@ -164,7 +165,7 @@ const Header = () => {
               checked={theme === "abyss"}
             />
           </label>
-          <a className=" poppins-regular btn ml-4">
+          <a className="btn ml-4">
             Contact Us
           </a>
         </div>

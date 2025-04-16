@@ -18,19 +18,19 @@ const Contact = () => {
       className="flex  flex-col justify-center items-center py-10 px-4 bg-base-200 relative overflow-hidden"
     >
       {/* Heading Section with Parallax Effect */}
-      <motion.h2
-        className="text-2xl poppins-regular font-semibold md:text-6xl text-[#0C1F5E] text-center"
+      <motion.h1
+        className=" text-[#0C1F5E] text-center"
         style={{ y: yHeading }}
       >
         Get in Touch
-      </motion.h2>
-      <motion.p
-        className="text-xl md:text-2xl poppins-regular text-[#0C1F5E] text-center mt-4 mb-8 max-w-2xl"
+      </motion.h1>
+      <motion.h2
+        className=" text-[#0C1F5E] text-center mt-4 mb-8 max-w-4xl"
         style={{ y: yHeading }}
       >
         Ready to explore how EarthSaathi can benefit your business? Contact us
         today for more information, partnerships, or consulting.
-      </motion.p>
+      </motion.h2>
 
       {/* Form Section with Animation from Bottom */}
       <motion.form
@@ -47,7 +47,7 @@ const Contact = () => {
       >
         {/* Name Field */}
         <div className="flex flex-col">
-          <label htmlFor="name" className="text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="  text-gray-700 mb-1">
             Name
           </label>
           <input
@@ -55,13 +55,13 @@ const Contact = () => {
             id="name"
             name="name"
             placeholder="Your name"
-            className="input poppins-regular input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           />
         </div>
 
         {/* Email Field */}
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="text-sm  text-gray-700 mb-1">
             Email
           </label>
           <input
@@ -69,13 +69,13 @@ const Contact = () => {
             id="email"
             name="email"
             placeholder="Your email"
-            className="input poppins-regular input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           />
         </div>
 
         {/* Message Field */}
         <div className="flex flex-col">
-          <label htmlFor="message" className="text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="message" className=" text-gray-700 mb-1">
             Message
           </label>
           <textarea
@@ -83,12 +83,12 @@ const Contact = () => {
             name="message"
             placeholder="Your message"
             rows={5}
-            className="textarea poppins-regular textarea-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="textarea textarea-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           ></textarea>
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="btn poppins-regular btn-primary w-full">
+        <button type="submit" className="btn btn-primary w-full">
           Send Message
         </button>
       </motion.form>

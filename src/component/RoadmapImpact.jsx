@@ -53,12 +53,12 @@ const RoadmapImpact = () => (
     <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-200/30 rounded-full blur-3xl -z-10" />
 
     <div className="max-w-5xl mx-auto text-center mb-12">
-      <h2 className="text-4xl md:text-6xl font-semibold text-[#01DC98] mb-4 drop-shadow">
+      <h1 className="  text-[#01DC98] mb-4 drop-shadow">
       EarthSaathi' s Roadmap
-      </h2>
-      <p className="text-lg md:text-xl text-[#0C1F5E]">
+      </h1>
+      <h2 className=" text-[#0C1F5E]">
         Together, we’re building a greener future—one ton, one job, one innovation at a time.
-      </p>
+      </h2>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -73,9 +73,9 @@ const RoadmapImpact = () => (
           variants={cardVariants}
         >
           <div className="mb-4">{metric.icon}</div>
-          <div className="text-3xl md:text-4xl font-bold text-green-900 mb-2">{metric.value}</div>
-          <div className="text-lg font-semibold text-green-800 mb-1">{metric.label}</div>
-          <div className="text-green-700 text-base">{metric.desc}</div>
+          <div className="  text-green-900 mb-2">{metric.value}</div>
+          <div className="  text-green-800 mb-1">{metric.label}</div>
+          <div className="text-green-700 ">{metric.desc}</div>
         </motion.div>
       ))}
     </div>

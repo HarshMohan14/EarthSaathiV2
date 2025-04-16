@@ -80,11 +80,11 @@ const Innovation = () => {
 
         {/* Parallax Text Section */}
         <motion.div className="w-7/12" style={{ y: yText }}>
-          <motion.h1 className="text-5xl font-bold mb-6" variants={textVariants}>
+          <motion.h1 className="  mb-6" variants={textVariants}>
             Innovative Technologies for Sustainable Energy
           </motion.h1>
 
-          <motion.p className="py-6 text-lg leading-relaxed" variants={textVariants}>
+          <motion.p className="py-6  leading-relaxed" variants={textVariants}>
             Our state-of-the-art technology focuses on enhancing energy conversion processes, such as advanced CO2 scrubbing, anaerobic digestion, and gasification techniques. By improving biogas production efficiency, we aim to maximize output while minimizing environmental impact.
           </motion.p>
 

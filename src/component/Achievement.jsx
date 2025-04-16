@@ -30,8 +30,8 @@ const AnimatedTestimonials = () => {
   };
 
   return (
-    <div className="flex justify-center flex-col poppins-regular items-center gap-12 min-h-screen py-10 ">
-        <h1 className="poppins-regular text-2xl md:text-6xl font-semibold text-[#0C1F5E]">Meet Our Teams</h1>
+    <div className="flex justify-center flex-col items-center gap-12 min-h-screen py-10 ">
+        <h1 className="  text-[#0C1F5E]">Meet Our Teams</h1>
       <div className="max-w-7xl p-8">
         <div className="grid gap-20 md:grid-cols-2">
           {/* Image Container */}
@@ -64,8 +64,8 @@ const AnimatedTestimonials = () => {
           {/* Content */}
           <div className="flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-bold text-[#01DC98]  mb-2">{testimonials[activeIndex].name}</h3>
-              <p className="text-sm font-semibold text-[#0C1F5E] mb-4">{testimonials[activeIndex].designation}</p>
+              <h3 className=" text-[#01DC98]  mb-2">{testimonials[activeIndex].name}</h3>
+              <p className=" text-[#0C1F5E] mb-4">{testimonials[activeIndex].designation}</p>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex} // Ensure animation restarts on index change
@@ -79,7 +79,7 @@ const AnimatedTestimonials = () => {
                       },
                     },
                   }}
-                  className="text-lg text-gray-700 leading-relaxed"
+                  className=" text-gray-700 leading-relaxed"
                 >
                   {testimonials[activeIndex].quote.split(" ").map((word, index) => (
                     <motion.span key={index} variants={textAnimation} className="inline-block mr-1">

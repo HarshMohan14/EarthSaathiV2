@@ -75,7 +75,7 @@ const Hero = () => {
           variants={textVariants}
         >
           <motion.h1
-            className="poppins-regular mb-5 text-2xl lg:text-6xl font-semibold drop-shadow-lg"
+            className="mb-5   drop-shadow-lg"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -83,8 +83,8 @@ const Hero = () => {
 
           </motion.h1>
 
-          <motion.p
-            className="poppins-regular mb-5 text-xl md:text-4xl"
+          <motion.h2
+            className="mb-5 "
             initial="hidden"
             animate="visible"
             variants={textVariants}
@@ -92,10 +92,10 @@ const Hero = () => {
           >
             We develop energy-efficient CO2 capture and biogas upgrading technologies to power industries and communities sustainably.
 
-          </motion.p>
+          </motion.h2>
 
           <motion.button
-            className="btn poppins-regular btn-primary "
+            className="btn btn-primary "
             variants={buttonVariants}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}

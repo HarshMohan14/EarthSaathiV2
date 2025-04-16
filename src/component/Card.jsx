@@ -29,12 +29,12 @@ const Card = ({ elem }) => {
         <img className="" src={elem.image} alt={elem.title} />
       </figure>
       <div className="card-body">
-        <h2 className="poppins-regular card-title text-xs md:text-xl text-[#0C1F5E]">
+        <h2 className="card-title  text-[#0C1F5E]">
           {elem.title}
           <Icon />
         </h2>
    
-        <div className=" poppins-regular card-actions justify-end">
+        <div className="  card-actions justify-end">
           <button className="btn btn-soft btn-success">Learn More</button>
         </div>
       </div>

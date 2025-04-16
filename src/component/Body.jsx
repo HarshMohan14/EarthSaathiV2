@@ -1,10 +1,9 @@
-import { motion } from 'framer-motion'
+
 import { useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
 import Hero from './Hero'
 import Tailored from './Tailored'
-import Innovation from './Innovation'
-import Contact from './Contact'
+
 import AchievementCarousel from './Achievement'
 import Success from './Success'
 
@@ -32,7 +31,6 @@ const Body = () => {
       {/* <Innovation /> */}
       <AchievementCarousel />
       <Success />
-      <Contact />
     </div>
   )
 }
