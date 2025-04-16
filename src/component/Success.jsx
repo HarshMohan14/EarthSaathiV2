@@ -71,7 +71,7 @@ export default function SuccessCarousel() {
   const cardWidth = `calc((100% - ${(slidesToShow - 1) * 3}rem) / ${slidesToShow})`;
 
   return (
-    <div className="bg-[#f1f6ff] py-10 flex flex-col items-center">
+    <div className="bg-[#f1f6ff] poppins-regular py-10 flex flex-col items-center">
      <AnimatedHeadline />
       
       <div className="relative w-full py-10 max-w-7xl overflow-hidden">

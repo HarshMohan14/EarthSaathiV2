@@ -15,17 +15,17 @@ const Contact = () => {
   return (
     <motion.div
       ref={ref}
-      className="flex flex-col justify-center items-center py-10 px-4 bg-base-200 relative overflow-hidden"
+      className="flex  flex-col justify-center items-center py-10 px-4 bg-base-200 relative overflow-hidden"
     >
       {/* Heading Section with Parallax Effect */}
       <motion.h2
-        className="text-2xl font-semibold md:text-6xl text-[#0C1F5E] text-center"
+        className="text-2xl poppins-regular font-semibold md:text-6xl text-[#0C1F5E] text-center"
         style={{ y: yHeading }}
       >
         Get in Touch
       </motion.h2>
       <motion.p
-        className="text-xl md:text-2xl text-[#0C1F5E] text-center mt-4 mb-8 max-w-2xl"
+        className="text-xl md:text-2xl poppins-regular text-[#0C1F5E] text-center mt-4 mb-8 max-w-2xl"
         style={{ y: yHeading }}
       >
         Ready to explore how EarthSaathi can benefit your business? Contact us
@@ -55,7 +55,7 @@ const Contact = () => {
             id="name"
             name="name"
             placeholder="Your name"
-            className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="input poppins-regular input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           />
         </div>
 
@@ -69,7 +69,7 @@ const Contact = () => {
             id="email"
             name="email"
             placeholder="Your email"
-            className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="input poppins-regular input-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           />
         </div>
 
@@ -83,12 +83,12 @@ const Contact = () => {
             name="message"
             placeholder="Your message"
             rows={5}
-            className="textarea textarea-bordered w-full focus:outline-none focus:ring focus:ring-primary"
+            className="textarea poppins-regular textarea-bordered w-full focus:outline-none focus:ring focus:ring-primary"
           ></textarea>
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" className="btn poppins-regular btn-primary w-full">
           Send Message
         </button>
       </motion.form>

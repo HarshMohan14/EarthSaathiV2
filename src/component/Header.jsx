@@ -106,7 +106,7 @@ const Header = () => {
               </li>
             ))}
             <li className="mt-4">
-              <a className="btn w-full" onClick={() => setDrawerOpen(false)}>
+              <a className="poppins-regular btn w-full" onClick={() => setDrawerOpen(false)}>
                 Contact Us
               </a>
             </li>
@@ -130,7 +130,7 @@ const Header = () => {
               <Link to={tab.path} key={tab.text}>
                 <button
                   onClick={() => setActiveTab(tab.text)}
-                  className={`relative px-4 py-2 rounded-lg font-medium cursor-pointer transition ${
+                  className={`relative poppins-regular px-4 py-2 rounded-lg font-medium cursor-pointer transition ${
                     activeTab === tab.text
                       ? "text-white"
                       : "text-[#0C1F5E] hover:text-[#01DC98]"
@@ -164,7 +164,7 @@ const Header = () => {
               checked={theme === "abyss"}
             />
           </label>
-          <a className="btn ml-4">
+          <a className=" poppins-regular btn ml-4">
             Contact Us
           </a>
         </div>

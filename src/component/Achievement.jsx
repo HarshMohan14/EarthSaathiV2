@@ -30,8 +30,8 @@ const AnimatedTestimonials = () => {
   };
 
   return (
-    <div className="flex justify-center flex-col items-center gap-12 min-h-screen py-10 ">
-        <h1 className="text-2xl md:text-6xl font-semibold text-[#0C1F5E]">Meet Our Teams</h1>
+    <div className="flex justify-center flex-col poppins-regular items-center gap-12 min-h-screen py-10 ">
+        <h1 className="poppins-regular text-2xl md:text-6xl font-semibold text-[#0C1F5E]">Meet Our Teams</h1>
       <div className="max-w-7xl p-8">
         <div className="grid gap-20 md:grid-cols-2">
           {/* Image Container */}
