@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link,useLocation  } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const Header = () => {
   const location = useLocation();
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "lemonade");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
   const [activeTab, setActiveTab] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  console.log("Drawer open",drawerOpen)
-  
+  console.log("Drawer open", drawerOpen);
 
   const tabs = [
     { text: "Home", path: "/" },
@@ -16,11 +17,12 @@ const Header = () => {
     { text: "Solutions", path: "/solutions" },
     { text: "Research&Insights", path: "/research-and-insights" },
     { text: "Project", path: "/project" },
-    { text: "Career ", path: "/career " },
-    { text: "Community ", path: "/community " },
+    { text: "Career", path: "/career" },
+    { text: "Community", path: "/community" },
+    { text: "Contact", path: "/contact" },
   ];
   useEffect(() => {
-    const currentTab = tabs.find(tab => location.pathname === tab.path);
+    const currentTab = tabs.find((tab) => location.pathname === tab.path);
     if (currentTab) {
       setActiveTab(currentTab.text);
     }
@@ -31,7 +33,7 @@ const Header = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === "lemonade" ? "abyss" : "lemonade");
+    setTheme(theme === "light" ? "abyss" : "light");
   };
 
   return (
@@ -43,7 +45,6 @@ const Header = () => {
           type="checkbox"
           className="drawer-toggle"
           checked={drawerOpen}
-      
         />
         <div className="drawer-content">
           {/* Navbar */}
@@ -52,7 +53,11 @@ const Header = () => {
               whileTap={{ scale: 1.1 }}
               className="navbar-start cursor-pointer"
             >
-              <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-36" />
+              <img
+                src="/earthSaathiFavicon.jpg"
+                alt="EarthSaathi"
+                className="w-36"
+              />
             </motion.div>
 
             {/* Hamburger button for mobile */}
@@ -69,7 +74,12 @@ const Header = () => {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </label>
               <label className="swap swap-rotate ml-2">
@@ -91,7 +101,11 @@ const Header = () => {
           ></label>
           <ul className="menu p-4 w-64 min-h-full bg-base-200 text-base-content">
             <li className="mb-4">
-              <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-32 mx-auto" />
+              <img
+                src="/earthSaathiFavicon.jpg"
+                alt="EarthSaathi"
+                className="w-32 mx-auto"
+              />
             </li>
             {tabs.map((tab) => (
               <li key={tab.text}>
@@ -106,11 +120,6 @@ const Header = () => {
                 </Link>
               </li>
             ))}
-            <li className="mt-4">
-              <a className="poppins-regular btn w-full" onClick={() => setDrawerOpen(false)}>
-                Contact Us
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -121,7 +130,11 @@ const Header = () => {
           whileTap={{ scale: 1.1 }}
           className="navbar-start cursor-pointer"
         >
-          <img src="/earthSaathiFavicon.jpg" alt="EarthSaathi" className="w-32" />
+          <img
+            src="/earthSaathiFavicon.jpg"
+            alt="EarthSaathi"
+            className="w-32"
+          />
         </motion.div>
 
         {/* Center Tabs with Cool Animation */}
@@ -165,9 +178,6 @@ const Header = () => {
               checked={theme === "abyss"}
             />
           </label>
-          <a className="btn ml-4">
-            Contact Us
-          </a>
         </div>
       </div>
     </div>

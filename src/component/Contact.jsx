@@ -15,7 +15,7 @@ const Contact = () => {
   return (
     <motion.div
       ref={ref}
-      className="flex  flex-col justify-center items-center py-10 px-4 bg-base-200 relative overflow-hidden"
+      className="flex  flex-col justify-center items-center pt-30 px-4 bg-base-200 relative overflow-hidden"
     >
       {/* Heading Section with Parallax Effect */}
       <motion.h1
