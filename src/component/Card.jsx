@@ -26,7 +26,7 @@ const Card = ({ elem }) => {
       variants={cardVariants}
     >
       {/* Perfect circle image container */}
-      <figure className="w-48 h-48 rounded-full overflow-hidden mx-auto mt-4">
+      <figure className="w-72 h-72 rounded-full overflow-hidden mx-auto mt-4">
         <img 
           className="w-full h-full object-cover" 
           src={elem.image} 

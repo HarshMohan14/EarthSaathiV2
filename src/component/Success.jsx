@@ -84,7 +84,13 @@ export default function SuccessCarousel() {
     clearTimeout(timeoutRef.current);
     setCurrent(prev => (prev + 1) % posts.length);
   };
-
+  const getVisibleSlides = () => {
+    const visible = [];
+    for (let i = 0; i < slidesToShow; i++) {
+      visible.push(posts[(current + i) % posts.length]);
+    }
+    return visible;
+  };
   // Calculate card width based on container
   const cardWidth = `calc((100% - ${(slidesToShow - 1) * 3}rem) / ${slidesToShow})`;
 
@@ -114,12 +120,8 @@ export default function SuccessCarousel() {
         <motion.div
           ref={containerRef}
           className="flex gap-8 px-4"
-          style={{
-            x: `-${current * (100 / slidesToShow)}%`,
-            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-          }}
         >
-          {posts.map((post, index) => (
+          {getVisibleSlides().map((post, index) => (
             <motion.div
               key={index}
               className="shrink-0 relative"

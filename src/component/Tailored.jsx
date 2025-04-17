@@ -31,7 +31,7 @@ const Tailored = () => {
       transition: {
         repeat: Infinity,
         ease: "linear",
-        duration: 5,
+        duration: 15,
       },
     });
   }, [contentWidth, controls]);
