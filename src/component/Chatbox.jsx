@@ -47,7 +47,7 @@ const Chatbox = () => {
     // Add bot response
     setTimeout(() => {
       setMessages(prev => [...prev, { 
-        text: "Thank you for your message! 🌱 Our eco-team will respond shortly.", 
+        text: "Thank you for your message! Our Team will respond shortly.", 
         sender: "bot",
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);

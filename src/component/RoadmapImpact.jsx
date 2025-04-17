@@ -4,30 +4,30 @@ import { Leaf, Recycle, Factory, Users } from "lucide-react"; // Lucide icons fo
 const metrics = [
   {
     icon: <Leaf className="text-green-600" size={40} />,
-    label: "Tons of Industrial CO2 captured by 2040",
-    value: "1,200,000+",
-    desc: "Atmospheric CO₂ captured and stored",
+    label: "Tons of Industrial CO₂ Captured by 2040",
+    value: "1,500,000+",
+    desc: "Cutting-edge carbon capture solutions for steel, cement, and refinery sectors stopping emissions at the source.",
     color: "from-green-200 to-green-400",
   },
   {
     icon: <Recycle className="text-green-700" size={40} />,
-    label: "Tons of Waste Biomass Recycled",
-    value: "850,000+",
-    desc: "Organic waste given a new life",
+    label: "Tons of Biomass Diverted from Landfills",
+    value: "1,000,000+",
+    desc: "Transforming food and agri-waste into clean Bio-CNG fuel giving waste a second life and reducing methane emissions",
     color: "from-lime-200 to-green-300",
   },
   {
     icon: <Factory className="text-emerald-700" size={40} />,
-    label: "Tons of Biochar Produced Annually",
-    value: "75,000+",
-    desc: "Biochar for soil & carbon storage",
+    label: "Green Jobs Created by 2040",
+    value: "100,000+",
+    desc: "Empowering communities through clean energy projects, skill development, and rural entrepreneurship.",
     color: "from-emerald-200 to-emerald-400",
   },
   {
     icon: <Users className="text-green-800" size={40} />,
-    label: "Jobs Created in Carbon Removal",
-    value: "2,500+",
-    desc: "Green jobs empowering communities",
+    label: "Bio-CNG & CO₂ Capture Systems Deployed Globally",
+    value: "500+",
+    desc: "Modular, scalable, and ready-to-integrate units driving decentralized clean energy access.",
     color: "from-green-100 to-green-300",
   },
 ];
@@ -57,7 +57,8 @@ const RoadmapImpact = () => (
       EarthSaathi' s Roadmap
       </h1>
       <h2 className=" text-[#0C1F5E]">
-        Together, we’re building a greener future—one ton, one job, one innovation at a time.
+      🌍 Together, we’re capturing carbon, converting waste, and creating livelihoods—one innovation at a time.
+
       </h2>
     </div>
 
@@ -73,8 +74,8 @@ const RoadmapImpact = () => (
           variants={cardVariants}
         >
           <div className="mb-4">{metric.icon}</div>
-          <div className="  text-green-900 mb-2">{metric.value}</div>
-          <div className="  text-green-800 mb-1">{metric.label}</div>
+          <div className="  text-green-900 mb-2 font-bold text-2xl">{metric.value}</div>
+          <div className="  text-green-800 font-semibold text-lg mb-1">{metric.label}</div>
           <div className="text-green-700 ">{metric.desc}</div>
         </motion.div>
       ))}
