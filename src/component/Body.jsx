@@ -1,38 +1,48 @@
-
-import { useEffect } from 'react'
-import Lenis from '@studio-freight/lenis'
-import Hero from './Hero'
-import Tailored from './Tailored'
-
-import AchievementCarousel from './Achievement'
-import Success from './Success'
+import { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
+import Hero from "./Hero";
+import Tailored from "./Tailored";
+import { parnter,solutions } from "../utils/tailored";
+import AchievementCarousel from "./Achievement";
+import Success from "./Success";
 
 const Body = () => {
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true,
-      smoothTouch: false
-    })
+      smoothTouch: false,
+    });
 
     const raf = (time) => {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
 
-    requestAnimationFrame(raf)
-    return () => lenis.destroy()
-  }, [])
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
+  }, []);
 
   return (
     <div>
       <Hero />
-      <Tailored />
+      <Tailored
+        description="Connecting innovative energy solutions to protect our planet's
+            atmosphere"
+        title=" Powering Sustainable Solutions"
+        solutions={solutions}
+      />
       {/* <Innovation /> */}
       <AchievementCarousel />
       <Success />
+      <Tailored
+        description="List of Our Partners"
+        title="Our Partner"
+        solutions={parnter}
+        imageStyle="object-scale-down"
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;

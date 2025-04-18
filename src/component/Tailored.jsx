@@ -1,73 +1,73 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { solutions } from "../utils/tailored";
 import Card from "./Card";
 
-const Tailored = () => {
+const Tailored = ({ title, description, solutions, imageStyle }) => {
   const containerRef = useRef(null);
   const controls = useAnimation();
   const [contentWidth, setContentWidth] = useState(0);
 
   useEffect(() => {
-    if (containerRef.current) {
-      // Calculate exact width of single set of cards including gaps
-      const container = containerRef.current;
-      const firstChild = container.children[0];
-      const gap = parseInt(getComputedStyle(container).gap) || 0;
-      
-      setContentWidth(
-        (firstChild.offsetWidth + gap) * solutions.length - gap
-      );
-    }
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const container = containerRef.current;
+        const firstChild = container.children[0];
+        const gap = parseInt(getComputedStyle(container).gap) || 0;
+        
+        setContentWidth(
+          (firstChild.offsetWidth + gap) * solutions.length - gap
+        );
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, [solutions]);
 
   useEffect(() => {
     if (contentWidth === 0) return;
 
     const finalX = -contentWidth;
+    const duration = contentWidth / 100; // Dynamic duration based on content width
     
     controls.start({
       x: [0, finalX],
       transition: {
         repeat: Infinity,
         ease: "linear",
-        duration: 15,
+        duration: duration > 15 ? 15 : duration, // Cap duration at 15s
       },
     });
   }, [contentWidth, controls]);
 
   return (
-    <div className="relative  overflow-hidden py-10">
-      <div className="relative z-10 container mx-auto my-auto px-4 py-12">
-        {/* ... Header remains unchanged ... */}
-        <div className="text-center mb-16">
-          <h1 className="text-[#0C1F5E] mb-4 text-4xl font-bold">
-            Powering Sustainable Solutions
+    <div className="relative overflow-hidden py-8 md:py-12">
+      <div className="relative z-10 container mx-auto px-4">
+        {/* Header Section */}
+        <div className="text-center mb-8 md:mb-16">
+          <h1 className="text-[#0C1F5E] mb-3 text-3xl md:text-4xl font-bold">
+            {title}
           </h1>
-          <h2 className="text-[#0C1F5E] text-xl md:text-2xl">
-            Connecting innovative energy solutions to protect our planet's
-            atmosphere
+          <h2 className="text-[#0C1F5E] text-lg md:text-xl lg:text-2xl px-2">
+            {description}
           </h2>
         </div>
-        {/* Card train container */}
-  {/* Card train container */}
-  <div className="overflow-hidden py-8 relative">
+
+        {/* Card Carousel */}
+        <div className="overflow-hidden py-4 md:py-8 relative">
           <motion.div
             ref={containerRef}
             animate={controls}
-            className="flex gap-2 w-max"
-            style={{
-              willChange: 'transform',
-              backfaceVisibility: 'hidden',
-            }}
+            className="flex gap-3 md:gap-4 w-max"
+            style={{ willChange: 'transform' }}
           >
-            {/* Triple duplication for seamless looping */}
             {[...solutions, ...solutions, ...solutions].map((elem, index) => (
               <div 
                 key={`${elem.title}-${index}`}
-                className="w-80 flex-shrink-0"
+                className="w-64 sm:w-72 md:w-80 flex-shrink-0" // Responsive card widths
               >
-                <Card elem={elem} />
+                <Card imageStyle={imageStyle} elem={elem} />
               </div>
             ))}
           </motion.div>

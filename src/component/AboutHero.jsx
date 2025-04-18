@@ -118,10 +118,10 @@ const AboutHero = () => {
       <div className="relative z-30 min-h-screen flex items-center justify-center pointer-events-none">
         <div className="text-center max-w-2xl px-4">
           <h1 className="mb-5   bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500">
-            Our Planet's Journey
+          Welcome to EarthSaathi
           </h1>
           <h2 className="mb-5  text-white">
-            Move your mouse over the image to reveal the transformation from pollution to preservation.
+          Move your mouse, clean the planet. Your journey as an EarthSaathi starts here.
           </h2>
         </div>
       </div>
