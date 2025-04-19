@@ -32,6 +32,7 @@ const LoadingScreen = () => {
         className="fixed inset-0 bg-white flex flex-col items-center justify-center z-50"
       >
         {/* Logo */}
+        <img src="/Logo.png" alt="" width={200} height={200} />
         <motion.h1
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
