@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 import earth from "../../public/earthsmoke.gif";
+import { Link } from "react-router";
 
 const Hero = () => {
   const ref = useRef(null);
@@ -93,8 +94,8 @@ const Hero = () => {
             We develop energy-efficient CO2 capture and biogas upgrading technologies to power industries and communities sustainably.
 
           </motion.h2>
-
-          <motion.button
+        <Link to="/solutions">
+        <motion.button
             className="btn btn-primary "
             variants={buttonVariants}
             whileHover={{ scale: 1.1 }}
@@ -103,6 +104,8 @@ const Hero = () => {
            Explore Our Technology
 
           </motion.button>
+        </Link>
+
         </motion.div>
       </motion.div>
     </motion.div>

@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { MessageCircle, Leaf, X, SendHorizonal, Paperclip, SmilePlus, CheckCheck } from "lucide-react";
 import EmojiPicker from 'emoji-picker-react';
-
+import logo from "/Logo.png"
 const Chatbox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -78,8 +78,8 @@ const Chatbox = () => {
             {/* Header */}
             <div className="bg-[#021358] p-3 flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <div className="p-2  rounded-full">
-                 <img src="/earthSaathiFavicon.jpg" className="h-10  rounded-full" alt="earthSaathi" />
+                <div className="p-2 bg-white rounded-full">
+                 <img src="/Logo.png" className="h-10  rounded-full" alt="earthSaathi" />
                 </div>
                 <div>
                   <h2 className="text-white font-semibold">EarthSaathi</h2>

@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-
-const stages = [
-  "seed",
-  "sprout",
-  "leaves",
-  "trunk",
-  "canopy"
-];
+import Bg from "/ResourceBg.mp4";
 
 const SolutionHero = () => {
-  const [stage, setStage] = useState(0);
-
-  // Animate growth step by step
-  useEffect(() => {
-    if (stage < stages.length - 1) {
-      const timer = setTimeout(() => setStage(stage + 1), 700);
-      return () => clearTimeout(timer);
-    }
-  }, [stage]);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#01DC98]/10 to-[#0C1F5E]/10 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video Background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src={Bg}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      {/* Optional: Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-[#01DC98]/10 to-[#0C1F5E]/10 z-0" />
+
       {/* Decorative Sparkles */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 0.3, y: 0 }}
         transition={{ duration: 1.2, delay: 0.2 }}
-        className="absolute left-8 top-8"
+        className="absolute left-8 top-8 z-10"
       >
         <Sparkles size={56} className="text-[#01DC98]" />
       </motion.div>
@@ -36,128 +31,30 @@ const SolutionHero = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 0.3, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4 }}
-        className="absolute right-8 bottom-8"
+        className="absolute right-8 bottom-8 z-10"
       >
         <Sparkles size={56} className="text-[#0C1F5E]" />
       </motion.div>
 
-      <div className="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 z-10">
-        {/* Left: Plant Growing Animation */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: -40 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1, type: "spring" }}
-          className="flex-shrink-0 flex items-center justify-center w-full md:w-1/2"
-        >
-          <svg
-            width="220"
-            height="220"
-            viewBox="0 0 200 200"
-            className="drop-shadow-2xl"
-          >
-            {/* Soil */}
-            <ellipse
-              cx="100"
-              cy="190"
-              rx="60"
-              ry="18"
-              fill="#654321"
-              opacity="0.2"
-            />
-            {/* Seed */}
-            {stage >= 0 && (
-              <motion.circle
-                cx="100"
-                cy="180"
-                r="10"
-                fill="#8B5E3C"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5 }}
-              />
-            )}
-            {/* Sprout */}
-            {stage >= 1 && (
-              <motion.path
-                d="M100 180 Q100 160 100 140"
-                stroke="#01DC98"
-                strokeWidth="6"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 0.7 }}
-              />
-            )}
-            {/* First leaves */}
-            {stage >= 2 && (
-              <>
-                <motion.ellipse
-                  cx="95"
-                  cy="150"
-                  rx="7"
-                  ry="3"
-                  fill="#01DC98"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                />
-                <motion.ellipse
-                  cx="105"
-                  cy="150"
-                  rx="7"
-                  ry="3"
-                  fill="#01DC98"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                />
-              </>
-            )}
-            {/* Trunk */}
-            {stage >= 3 && (
-              <motion.rect
-                x="97"
-                y="120"
-                width="6"
-                height="60"
-                fill="#8B5E3C"
-                initial={{ height: 0 }}
-                animate={{ height: 60 }}
-                transition={{ duration: 0.7 }}
-              />
-            )}
-            {/* Canopy */}
-            {stage >= 4 && (
-              <motion.circle
-                cx="100"
-                cy="120"
-                r="28"
-                fill="#01DC98"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.7 }}
-              />
-            )}
-          </svg>
-        </motion.div>
-
-        {/* Right: Storytelling Content */}
+      {/* Content */}
+      <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center z-10">
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2, type: "spring" }}
-          className="w-full md:w-1/2 text-center md:text-left"
+          className="w-full text-center"
         >
-          <h1 className=" text-[#0C1F5E] mb-6 leading-tight drop-shadow">
-            <span className="text-[#01DC98]">Our Solutions</span> Nurture a Greener Tomorrow
+          <h1 className="text-white mb-6 leading-tight drop-shadow">
+            <span className="text-[#01DC98]">2 Market!</span> 1 Solution!
+            <span className="text-[#01DC98]"> 1 Mission!</span> 
           </h1>
-          <p className="mb-6  text-[#0C1F5E]/80  max-w-xl mx-auto md:mx-0">
-            Just as a seed becomes a tree, our technology helps industries and communities grow a sustainable future—removing CO₂, recycling waste, and restoring balance to our planet.
+          <p className="mb-6 text-4xl text-yellow-400 openSans font-bold max-w-xl mx-auto">
+           Decarbonization
           </p>
-          <ul className="mb-8 text-[#01DC98] space-y-2 max-w-lg mx-auto md:mx-0">
-            <li>🌱 Millions of tons of CO₂ removed from the atmosphere</li>
-            <li>♻️ Waste transformed into clean energy and biochar</li>
-            <li>👩‍🔬 New opportunities for communities and the planet</li>
+          <ul className="mb-8 text-white space-y-2 max-w-lg mx-auto">
+            <li> Millions of tons of CO₂ removed from the industrial flue gas</li>
+            <li> Waste transformed into clean energy and biochar</li>
+            <li>New opportunities for communities and the planet</li>
           </ul>
           <motion.a
             whileHover={{ scale: 1.05 }}

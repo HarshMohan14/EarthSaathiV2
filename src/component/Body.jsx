@@ -36,8 +36,7 @@ const Body = () => {
       <AchievementCarousel />
       <Success />
       <Tailored
-        description="List of Our Partners"
-        title="Our Partner"
+        title="Ecosystem Partners"
         solutions={parnter}
         imageStyle="object-scale-down"
       />

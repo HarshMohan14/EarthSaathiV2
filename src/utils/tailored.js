@@ -100,10 +100,4 @@ export const parnter = [
         icon: Pizza,
         image: partner9
     },
-    {
-        title: "Startup",
-        description: "Transform organic waste from production into Bio-CNG, significantly reducing waste disposal costs and greenhouse gas emissions.",
-        icon: Pizza,
-        image: partner10
-    },
 ];
