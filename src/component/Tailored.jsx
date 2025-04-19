@@ -12,7 +12,7 @@ const Tailored = ({ title, description, solutions, imageStyle }) => {
       if (containerRef.current) {
         const container = containerRef.current;
         const firstChild = container.children[0];
-        const gap = parseInt(getComputedStyle(container).gap) || 0;
+        const gap = parseInt(getComputedStyle(container).gap ) || 0;
         
         setContentWidth(
           (firstChild.offsetWidth + gap) * solutions.length - gap
@@ -59,7 +59,7 @@ const Tailored = ({ title, description, solutions, imageStyle }) => {
           <motion.div
             ref={containerRef}
             animate={controls}
-            className="flex gap-3 md:gap-4 w-max"
+            className="flex gap-0 md:gap-4 w-max"
             style={{ willChange: 'transform' }}
           >
             {[...solutions, ...solutions, ...solutions].map((elem, index) => (

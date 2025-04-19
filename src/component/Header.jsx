@@ -83,12 +83,12 @@ const Header = () => {
                 </svg>
               </label>
               <label className="swap swap-rotate ml-2">
-                <input
+                {/* <input
                   type="checkbox"
                   onChange={toggleTheme}
                   className="toggle"
                   checked={theme === "abyss"}
-                />
+                /> */}
               </label>
             </div>
           </div>
@@ -170,14 +170,14 @@ const Header = () => {
 
         {/* Theme Toggle and Contact Button */}
         <div className="navbar-end">
-          <label className="swap swap-rotate">
+          {/* <label className="swap swap-rotate">
             <input
               type="checkbox"
               onChange={toggleTheme}
               className="toggle"
               checked={theme === "abyss"}
             />
-          </label>
+          </label> */}
         </div>
       </div>
     </div>
