@@ -7,7 +7,7 @@ const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   // Parallax motion values
@@ -36,7 +36,7 @@ const Hero = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       ref={ref}
       className="hero min-h-screen z-8 relative overflow-hidden"
       initial={{ opacity: 0 }}
@@ -44,11 +44,11 @@ const Hero = () => {
       transition={{ duration: 1 }}
     >
       {/* Parallax Background */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0"
         style={{
           y: yBg,
-          scale: scaleBg
+          scale: scaleBg,
         }}
       >
         <img
@@ -59,13 +59,13 @@ const Hero = () => {
       </motion.div>
 
       {/* Overlay with parallax opacity */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 bg-black/50"
         style={{ opacity: opacityOverlay }}
       />
 
       {/* Parallax Content */}
-      <motion.div 
+      <motion.div
         className="hero-content text-neutral-content text-center relative z-10"
         style={{ y: yText }}
       >
@@ -80,8 +80,7 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-          Turning Waste & Emissions Into Clean Fuel
-
+            Turning Waste & Emissions Into Clean Fuel
           </motion.h1>
 
           <motion.h2
@@ -91,21 +90,18 @@ const Hero = () => {
             variants={textVariants}
             transition={{ delay: 0.2 }}
           >
-            We develop energy-efficient CO2 capture and biogas upgrading technologies to power industries and communities sustainably.
-
+            We develop energy-efficient CO2 capture and biogas upgrading
+            technologies to power industries and communities sustainably.
           </motion.h2>
-        <Link to="/solutions">
-        <motion.button
-            className="btn btn-primary "
-            variants={buttonVariants}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-           Explore Our Technology
-
-          </motion.button>
-        </Link>
-
+          <Link to="/solutions">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn btn-lg bg-[#01DC98] text-[#0C1F5E] border-none shadow-lg hover:bg-[#0C1F5E] hover:text-white transition"
+            >
+              Explore Our Technology
+            </motion.a>
+          </Link>
         </motion.div>
       </motion.div>
     </motion.div>

@@ -33,7 +33,7 @@ const AnimatedTestimonials = () => {
 
   return (
     <div className="flex justify-center flex-col items-center gap-12 py-10 ">
-      <h1 className="  text-[#0C1F5E]">Meet Our Teams</h1>
+      <h1 className="  text-[#0C1F5E]">Meet Our Team</h1>
       <div className="max-w-7xl p-8">
         <div className="grid gap-8 md:grid-cols-4">
           {/* Image Container */}
