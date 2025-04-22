@@ -9,6 +9,10 @@ import earthData from "../public/earth-animation.json";
 import About from "./pages/About";
 import Solution from "./pages/Solution";
 import Contact from "./component/Contact";
+import Project from "./pages/Project";
+import Career from "./pages/Career";
+import Resources from "./pages/Resources";
+import Community from "./pages/Community";
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
@@ -96,6 +100,22 @@ const router = createBrowserRouter([
       {
         path:'/contact',
         element:<Contact />
+      },
+      {
+        path:'/project',
+        element:<Project />
+      },
+      {
+        path:'/resources',
+        element:<Resources />
+      },
+      {
+        path:'/career',
+        element:<Career />
+      },
+      {
+        path:'/community',
+        element:<Community />
       }
     ],
   },
