@@ -9,49 +9,54 @@ import partner7 from "/partner7.jpg"
 import partner8 from "/partner8.jpg"
 import partner9 from "/partner9.jpg"
 import partner10 from "/partner10.jpg"
-
+import t1 from "/t1.jpeg"
+import t2 from "/t2.jpeg"
+import t3 from "/t3.jpeg"
+import t4 from "/t4.jpeg"
+import t5 from "/t5.jpeg"
+import t6 from "/t6.jpeg"
 export const solutions = [
     {
         id: "biogas-producers",
         title: "Biogas Producers",
         description: "Optimize bioenergy production with our innovative CO2 scrubbing technology, significantly enhancing biogas yields and efficiency.",
         icon: Leaf,
-        image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e"
+        image: t1
     },
     {
         id: "cement-industry",
         title: "Cement Industry",
         description: "Use our Bio-CNG as an alternative fuel source, reducing carbon emissions and operational costs while promoting sustainable practices.",
         icon: Factory,
-        image: "https://images.unsplash.com/photo-1496247749665-49cf5b1022e9"
+        image: t2
     },
     {
         id: "steel-industry",
         title: "Steel Industry",
         description: "Integrate our clean energy solutions into your operations to minimize fossil fuel reliance and achieve your sustainability goals.",
         icon: Building2,
-        image: "https://images.unsplash.com/photo-1516937941344-00b4e0337589"
+        image: t3
     },
     {
         id: "thermal-power-plants",
         title: "Thermal Power Plants",
         description: "Transition to renewable sources with our Bio-CNG, enhancing your energy mix while contributing to net-zero initiatives.",
         icon: Zap,
-        image: "https://images.unsplash.com/photo-1509391366360-2e959784a276"
+        image: t4
     },
     {
         id: "oil-marketing-companies",
         title: "Oil Marketing Companies",
         description: "Diversify your energy portfolio with sustainable alternatives that align with modern energy demands and regulatory standards.",
         icon: Droplets,
-        image: "https://images.unsplash.com/photo-1513828646384-e4d8ec30d2bb"
+        image: t5
     },
     {
         id: "beverage-companies",
         title: "Beverage Companies",
         description: "Transform organic waste from production into Bio-CNG, significantly reducing waste disposal costs and greenhouse gas emissions.",
         icon: Pizza,
-        image: "https://images.unsplash.com/photo-1512813759302-a44af29da3c1"
+        image: t6
     },
 ];
 
