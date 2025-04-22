@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import shaurya from "../../public/shaurya.jpg";
+import placeholder from "/earthSaathiFavicon.jpg"
 const testimonials = [
   {
     quote:
@@ -8,6 +9,13 @@ const testimonials = [
     name: "Dr. Shaurya Mohan",
     designation: "CEO & Co-Founder, EarthSaathi",
     src: shaurya,
+  },
+  {
+    quote:
+      "Holds a PhD in Chemical Engineering from the Institute of Chemical Technology, Mumbai, India. Focuses on biofuels and carbon capture with in-depth research on Sustainable Aviation Fuel (SAF), renewable diesel, and feedstock markets. Co-holds a patent for an energy-efficient absorbent designed for carbon capture, funded by the Centre of Higher Technology (CHT), Government of India, Delhi. Unique blend of academic knowledge and practical experience positions as a leader in the biofuels sector, driving innovation and sustainability.",
+    name: "Dr. Namrata",
+    designation: "CTO, Co-founder",
+    src: placeholder,
   },
 ];
 
