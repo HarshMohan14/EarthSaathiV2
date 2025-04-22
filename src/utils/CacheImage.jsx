@@ -15,7 +15,6 @@ const CacheImage = React.memo(({ src, alt, className }) => {
         src={loaded ? src : ''}
         alt={alt}
         className={`${className} ${loaded ? 'loaded' : 'loading'}`}
-        loading="lazy"
       />
     );
   });

@@ -45,8 +45,8 @@ const SolutionHero = () => {
           className="w-full text-center"
         >
           <h1 className="text-white mb-6 leading-tight drop-shadow">
-            <span className="text-[#01DC98]">2 Market!</span> 1 Solution!
-            <span className="text-[#01DC98]"> 1 Mission!</span> 
+            <span className="text-[#01DC98]">2 Market</span> 1 Solution
+            <span className="text-[#01DC98]"> 1 Mission</span> 
           </h1>
           <p className="mb-6 text-4xl text-yellow-400 openSans font-bold max-w-xl mx-auto">
            Decarbonization

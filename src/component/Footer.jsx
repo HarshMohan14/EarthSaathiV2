@@ -5,9 +5,9 @@ import { Link } from "react-router";
 
 const socialLinks = [
   { icon: <Twitter size={28} />, url: "https://twitter.com/" },
-  { icon: <Linkedin size={28} />, url: "https://linkedin.com/" },
-  { icon: <Youtube size={28} />, url: "https://github.com/" },
-  { icon: <Instagram size={28} />, url: "https://instagram.com/" },
+  { icon: <Linkedin size={28} />, url: "https://www.linkedin.com/company/earthsaathi/posts/?feedView=all" },
+  { icon: <Youtube size={28} />, url: "https://www.youtube.com/@EarthSaathi" },
+  { icon: <Instagram size={28} />, url: "https://www.instagram.com/earthsaathi?igsh=MWIwazRjODB1ajR3Mg==" },
 ];
 
 const pageLinks = [

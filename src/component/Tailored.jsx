@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useMemo } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Card from "./Card";
 
-const Tailored = ({ title, description, solutions, imageStyle }) => {
+const Tailored = ({ title, description, solutions, imageStyle,show }) => {
   const containerRef = useRef(null);
   const controls = useAnimation();
   const [contentWidth, setContentWidth] = useState(0);
@@ -89,7 +89,7 @@ const Tailored = ({ title, description, solutions, imageStyle }) => {
                 key={elem.id}
                 className="w-64 sm:w-72 md:w-80 flex-shrink-0" // Responsive card widths
               >
-                <Card imageStyle={imageStyle} elem={elem} />
+                <Card imageStyle={imageStyle} elem={elem} show={show} />
               </div>
             ))}
           </motion.div>

@@ -31,6 +31,7 @@ const Body = () => {
             atmosphere"
         title=" Powering Sustainable Solutions"
         solutions={solutions}
+        show={true}
       />
       {/* <Innovation /> */}
       <AchievementCarousel />
@@ -39,6 +40,7 @@ const Body = () => {
         title="Ecosystem Partners"
         solutions={parnter}
         imageStyle="object-scale-down"
+        show={false}
       />
     </div>
   );
