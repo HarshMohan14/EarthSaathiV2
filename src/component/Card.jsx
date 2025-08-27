@@ -31,7 +31,7 @@ const Card = React.memo(({ elem, imageStyle,show }) => {
     >
       {/* Responsive perfect circle image container */}
    
-      <figure className="w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden mx-auto mt-4">
+      <figure className="w-48 h-48 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full  mx-auto mt-4">
       <CacheImage 
     className={`w-full h-full object-cover ${imageStyle}`}
     src={elem.image}

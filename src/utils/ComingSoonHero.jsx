@@ -42,7 +42,7 @@ const ComingSoonHero = () => {
   
   // Countdown timer logic
   useEffect(() => {
-    const launchDate = new Date('May 30, 2025').getTime();
+    const launchDate = new Date('July 12, 2025').getTime();
     
     const timer = setInterval(() => {
       const now = new Date().getTime();

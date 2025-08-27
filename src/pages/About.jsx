@@ -3,6 +3,7 @@ import AboutHero from '../component/AboutHero'
 import MissionVision from '../component/MissionVision'
 import AnimatedTestimonials from '../component/Achievement'
 import RoadmapImpact from '../component/RoadmapImpact'
+import AdvisorsSection from '../component/AdvisorCard'
 
 const About = () => {
   return (
@@ -10,6 +11,7 @@ const About = () => {
       <AboutHero />
       <MissionVision />
       <AnimatedTestimonials />
+      <AdvisorsSection />
       <RoadmapImpact />
     </div>
   )
