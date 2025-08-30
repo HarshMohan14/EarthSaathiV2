@@ -13,6 +13,8 @@ import Project from "./pages/Project";
 import Career from "./pages/Career";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
+import { PerformanceOptimizer } from "./utils/PerformanceOptimizer";
+import ErrorBoundary from "./utils/ErrorBoundary";
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
@@ -78,7 +80,6 @@ const LoadingScreen = () => {
   );
 };
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -127,12 +128,17 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 3000); // Show loader for 3 seconds
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <>{isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}</>
+    <>
+      <ErrorBoundary>
+        <PerformanceOptimizer />
+      </ErrorBoundary>
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+    </>
   );
 };
 

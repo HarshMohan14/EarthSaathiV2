@@ -1,0 +1,66 @@
+{
+  "name": "EarthSaathi - Sustainable Energy Solutions",
+  "short_name": "EarthSaathi",
+  "description": "Leading sustainable energy solutions and environmental innovation platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#01DC98",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "environment", "technology", "sustainability"],
+  "icons": [
+    {
+      "src": "/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/Logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/Logo.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "About Us",
+      "short_name": "About",
+      "description": "Learn about EarthSaathi's mission",
+      "url": "/about",
+      "icons": [{ "src": "/Logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Solutions",
+      "short_name": "Solutions",
+      "description": "Explore our sustainable energy solutions",
+      "url": "/solutions",
+      "icons": [{ "src": "/Logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View our environmental projects",
+      "url": "/projects",
+      "icons": [{ "src": "/Logo.png", "sizes": "96x96" }]
+    }
+  ]
+}
