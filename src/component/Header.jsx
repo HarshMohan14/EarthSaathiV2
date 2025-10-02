@@ -300,7 +300,7 @@ const Header = () => {
 
         {/* Theme Toggle and Contact Button */}
         <div className="navbar-end">
-          <Link to="/solutions">
+          <Link to="/get-quote">
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}

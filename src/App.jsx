@@ -103,6 +103,10 @@ const router = createBrowserRouter([
         element:<Contact />
       },
       {
+        path:'/get-quote',
+        element:<Contact />
+      },
+      {
         path:'/project',
         element:<Project />
       },

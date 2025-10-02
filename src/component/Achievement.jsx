@@ -5,14 +5,14 @@ import placeholder from "/earthSaathiFavicon.jpg"
 const testimonials = [
   {
     quote:
-      "Dr. Shaurya Mohan is a chemical engineer, climate strategist, and clean energy innovator with over 5 years of experience in R&D, industrial consulting, and energy transition planning. As a Ph.D. from ICT Mumbai, her work focuses on developing high-impact, low-cost decarbonization technologies for industries and waste systems.",
+      "Dr. Shaurya Mohan is a chemical engineer, climate strategist, and clean energy innovator with over 5 years of experience in R&D, industrial consulting, and energy transition planning. As a Ph.D. from ICT Mumbai, her work focuses on developing high-impact, low-cost decarbonization technologies for industries and waste systems.",
     name: "Dr. Shaurya Mohan",
     designation: "CEO & Co-Founder, EarthSaathi",
     src: shaurya,
   },
   {
     quote:
-      "Holds a PhD in Chemical Engineering from the Institute of Chemical Technology, Mumbai, India. Focuses on biofuels and carbon capture with in-depth research on Sustainable Aviation Fuel (SAF), renewable diesel, and feedstock markets. Co-holds a patent for an energy-efficient absorbent designed for carbon capture, funded by the Centre of Higher Technology (CHT), Government of India, Delhi. Unique blend of academic knowledge and practical experience positions as a leader in the biofuels sector, driving innovation and sustainability.",
+      "Holds a PhD in Chemical Engineering from the Institute of Chemical Technology, Mumbai, India. Focuses on biofuels and carbon capture with in-depth research on Sustainable Aviation Fuel (SAF), renewable diesel, and feedstock markets. Co-holds a patent for an energy-efficient absorbent designed for carbon capture, funded by the Centre of Higher Technology (CHT), Government of India, Delhi. Unique blend of academic knowledge and practical experience positions as a leader in the biofuels sector, driving innovation and sustainability.",
     name: "Dr. Namrata",
     designation: "CTO, Co-founder",
     src: placeholder,
@@ -34,10 +34,6 @@ const AnimatedTestimonials = () => {
     return () => clearInterval(autoplayInterval); // Cleanup interval on unmount
   }, [activeIndex]);
 
-  const textAnimation = {
-    hidden: { opacity: 0.3, y: 10 }, // Start at 30% opacity and slightly below
-    visible: { opacity: 1, y: 0 }, // Animate to full opacity and original position
-  };
 
   return (
     <div className="flex justify-center flex-col items-center gap-12 py-10 ">
@@ -79,34 +75,9 @@ const AnimatedTestimonials = () => {
               <p className=" text-[#0C1F5E] mb-4">
                 {testimonials[activeIndex].designation}
               </p>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex} // Ensure animation restarts on index change
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.05,
-                      },
-                    },
-                  }}
-                  className=" text-gray-700 leading-relaxed"
-                >
-                  {testimonials[activeIndex].quote
-                    .split(" ")
-                    .map((word, index) => (
-                      <motion.span
-                        key={index}
-                        variants={textAnimation}
-                        className="inline-block mr-1"
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                </motion.div>
-              </AnimatePresence>
+              <p className="text-gray-700 leading-relaxed">
+                {testimonials[activeIndex].quote}
+              </p>
             </div>
 
             {/* Arrow Buttons */}
