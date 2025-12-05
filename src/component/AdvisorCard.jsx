@@ -26,15 +26,50 @@ const AdvisorCard = ({ name, title, description, imageUrl }) => (
 );
 
 const AdvisorsSection = () => {
-  const advisors = [
-    {
-      name: "Wahid A. Kamalian",
-      title: "Co-Founder & Managing Partner, Amaly Legacy",
-      description:
-        "EarthSaathi's groundbreaking CNS biogas solution is a true game-changer in sustainable energy, especially at industrial scale. We saw their solution expertly designed and customized for a large-scale cashew processing plant project in Tanzania, where it transforms onsite organic waste into a self-contained energy hub. This not only reduces disposal costs and environmental impact-which is critical for the procurement divisions of large clients seeking to reduce their scope 3 emissions-but also offsets the plant's energy use, making operations more circular, resilient, and cost-effective.",
-      imageUrl: "/Wahid A. Kamalian.jpg", // Replace with your image
-    },
-  ];
+  const [advisors, setAdvisors] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchAdvisors = async () => {
+      try {
+        const { advisorsAPI } = await import('../utils/api');
+        const data = await advisorsAPI.getAll();
+        setAdvisors(data);
+      } catch (error) {
+        console.error('Error fetching advisors:', error);
+        setAdvisors([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAdvisors();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+        <h1 className="text-3xl font-bold text-center text-[#0C1F5E] mb-12">
+          Our Advisors
+        </h1>
+        <div className="text-center text-gray-600">
+          <p>Loading advisors...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (advisors.length === 0) {
+    return (
+      <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+        <h1 className="text-3xl font-bold text-center text-[#0C1F5E] mb-12">
+          Our Advisors
+        </h1>
+        <div className="text-center text-gray-600">
+          <p>No advisors available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
@@ -43,7 +78,7 @@ const AdvisorsSection = () => {
       </h1>
       <div className="flex justify-center max-w-6xl mx-auto">
         {advisors.map((advisor, index) => (
-          <div key={index} className="w-full max-w-2xl">
+          <div key={advisor._id || index} className="w-full max-w-2xl">
             <AdvisorCard {...advisor} />
           </div>
         ))}

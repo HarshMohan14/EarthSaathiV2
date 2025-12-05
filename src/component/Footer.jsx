@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
+import { Twitter, Linkedin, Youtube, Instagram, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { Link } from "react-router";
+import { newsletterSubscribersAPI } from "../utils/api";
 
 const socialLinks = [
   { icon: <Twitter size={28} />, url: "https://twitter.com/" },
@@ -18,6 +19,39 @@ const pageLinks = [
 ];
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setMessage({ type: 'error', text: 'Please enter your email' });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage({ type: 'error', text: 'Please enter a valid email' });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setMessage({ type: '', text: '' });
+
+      const result = await newsletterSubscribersAPI.subscribe({ email: email.trim() });
+      
+      setMessage({ type: 'success', text: result.message || 'Successfully subscribed!' });
+      setEmail('');
+    } catch (error) {
+      setMessage({ type: 'error', text: error.message || 'Subscription failed. Please try again.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="w-full bg-[#0C1F5E] text-white px-6 py-12">
       <div className="max-w-7xl mx-auto flex flex-wrap justify-center items-center gap-10 ">
@@ -74,28 +108,51 @@ const Footer = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, type: "spring" }}
-          className="flex flex-col items-center md:items-end gap-3"
+          className="flex flex-col items-center md:items-end gap-3 w-full max-w-xs"
         >
           <span className="text-[#01DC98] font-bold text-lg mb-2">Newsletter</span>
           <form
-            className="flex w-full max-w-xs"
-            onSubmit={e => {
-              e.preventDefault();
-              // handle subscribe
-            }}
+            className="flex flex-col w-full gap-2"
+            onSubmit={handleSubscribe}
           >
-            <input
-              type="email"
-              placeholder="Your email"
-              className="input input-bordered rounded-l bg-white text-black focus:outline-none"
-              required
-            />
-            <button
-              type="submit"
-              className="btn rounded-r bg-[#01DC98] text-[#0C1F5E] border-none hover:bg-white hover:text-[#0C1F5E] transition"
-            >
-              Subscribe
-            </button>
+            <div className="flex w-full">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                className="input input-bordered rounded-l bg-white text-black focus:outline-none flex-1 px-3 py-2"
+                required
+                disabled={loading}
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn rounded-r bg-[#01DC98] text-[#0C1F5E] border-none hover:bg-white hover:text-[#0C1F5E] transition disabled:opacity-50 flex items-center justify-center min-w-[100px]"
+              >
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  'Subscribe'
+                )}
+              </button>
+            </div>
+            {message.text && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`text-xs flex items-center space-x-1 ${
+                  message.type === 'success' ? 'text-[#01DC98]' : 'text-red-400'
+                }`}
+              >
+                {message.type === 'success' ? (
+                  <CheckCircle className="w-3 h-3" />
+                ) : (
+                  <XCircle className="w-3 h-3" />
+                )}
+                <span>{message.text}</span>
+              </motion.div>
+            )}
           </form>
         </motion.div>
       </div>

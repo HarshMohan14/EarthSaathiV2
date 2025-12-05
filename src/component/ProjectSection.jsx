@@ -1,74 +1,54 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { projectsAPI } from "../utils/api";
 
 const ProjectSection = () => {
-  const projects = [
-    {
-      title: "Enhancing Methane Purity at Cattle Research Institute",
-      subtitle: "Ongoing Project",
-      imageUrl: "/Project1.jpg", // Replace with your image
-      sections: [
-        {
-          title: "Client Challenge",
-          content: "The Cattle Research Institute in Pune operates a biogas plant that currently achieves methane purity levels of around 80–85% using a traditional water scrubbing system. While effective to a degree, the existing setup has limitations in energy efficiency and output quality, making it less suitable for high-value clean energy applications."
-        },
-        {
-          title: "Our Approach",
-          content: "EarthSaathi is collaborating with the institute on a large-scale pilot to integrate our proprietary NS-MAX™ solvent technology into their biogas purification process. The goal is to enhance methane purity up to 99%, while also reducing energy consumption and operational inefficiencies."
-        },
-        {
-          title: "Project Highlights",
-          content: [
-            "Focused on improving methane quality for better energy utilization",
-            "Collaboration with a Japanese biogas plant for additional R&D support",
-            "Designed for energy savings and operational efficiency"
-          ]
-        },
-        {
-          title: "Status",
-          content: "The project is currently in the pilot implementation phase. Early results are promising, and ongoing testing will help validate improvements in gas quality, energy use, and system scalability."
-        },
-        {
-          title: "Why It Matters",
-          content: "This pilot represents a significant step in demonstrating how innovative solvent technologies can upgrade existing biogas systems, making them more sustainable and impactful for rural and research-based energy initiatives."
-        }
-      ]
-    },
-    {
-      title: "Cashew Waste to Energy - Pilot in Africa",
-      subtitle: "Ongoing Project",
-      imageUrl: "/Project2.jpg", // Replace with your image
-      sections: [
-        {
-          title: "Client Challenge",
-          content: "A new cashew processing plant in Africa was looking for a sustainable way to meet its electricity demands while managing the significant organic waste generated from processing. Traditional power sources were either unreliable or costly, and waste disposal posed an environmental burden."
-        },
-        {
-          title: "Our Approach",
-          content: "EarthSaathi designed a proof-of-concept (POC) biogas solution that turns cashew waste into clean energy. The goal is to meet at least 19% of the plant's daily electricity needs by converting organic waste into biomethane using advanced digestion and purification technology."
-        },
-        {
-          title: "Project Components",
-          content: [
-            "Biogas system setup: digesters, agitators, membranes, and H₂S control",
-            "External biomethane storage tanks (3000m³ x 2)",
-            "CHP-enabled electrical generators",
-            "Biogas purification using NS-MAX™ solvent",
-            "Integration of fertilizer processing for digestate reuse",
-            "Full installation and implementation support"
-          ]
-        },
-        {
-          title: "Status",
-          content: "The pilot is in the system design and component selection stage. Once operational, it will serve as a blueprint for other agro-processing plants across Africa to adopt circular energy solutions."
-        },
-        {
-          title: "Why It Matters",
-          content: "This project showcases how agricultural waste can be converted into power-reducing energy dependence, cutting emissions, and improving overall sustainability in rural industries. It's a strong example of EarthSaathi's mission to build low-carbon solutions tailored to real-world challenges."
-        }
-      ]
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const data = await projectsAPI.getAll();
+      setProjects(data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      // Fallback to empty array on error
+      setProjects([]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section className="py-24 px-4 md:px-8 lg:px-16 bg-white">
+        <div className="text-center">
+          <p className="text-gray-600">Loading projects...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section className="py-24 px-4 md:px-8 lg:px-16 bg-white">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-center text-[#0C1F5E] mb-12"
+        >
+          Our Projects
+        </motion.h1>
+        <div className="text-center text-gray-600">
+          <p>No projects available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 px-4 md:px-8 lg:px-16 bg-white">
@@ -83,7 +63,7 @@ const ProjectSection = () => {
       <div className="max-w-6xl mx-auto space-y-16">
         {projects.map((project, index) => (
           <motion.div
-            key={index}
+            key={project._id || index}
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
