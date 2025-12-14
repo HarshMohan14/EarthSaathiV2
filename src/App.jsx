@@ -13,8 +13,26 @@ import Project from "./pages/Project";
 import Career from "./pages/Career";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
+import Newsletter from "./pages/Newsletter";
 import { PerformanceOptimizer } from "./utils/PerformanceOptimizer";
 import ErrorBoundary from "./utils/ErrorBoundary";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+import AdminLayout from "./components/admin/AdminLayout";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import Advisors from "./pages/admin/Advisors";
+import Projects from "./pages/admin/Projects";
+import Team from "./pages/admin/Team";
+import Newsletters from "./pages/admin/Newsletters";
+import Subscribers from "./pages/admin/Subscribers";
+import AdminResources from "./pages/admin/Resources";
+import ContactSubmissions from "./pages/admin/ContactSubmissions";
+import QuoteRequests from "./pages/admin/QuoteRequests";
+import SuccessStories from "./pages/admin/SuccessStories";
+import Solutions from "./pages/admin/Solutions";
+import ChatMessages from "./pages/admin/ChatMessages";
+import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
@@ -121,8 +139,146 @@ const router = createBrowserRouter([
       {
         path:'/community',
         element:<Community />
+      },
+      {
+        path:'/newsletters',
+        element:<Newsletter />
       }
     ],
+  },
+  {
+    path: "/admin-panel",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Dashboard />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/login",
+    element: <Login />,
+  },
+  {
+    path: "/admin-panel/advisors",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Advisors />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/projects",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Projects />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/team",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Team />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/newsletters",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Newsletters />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/subscribers",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Subscribers />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/resources",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <AdminResources />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/contact-submissions",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <ContactSubmissions />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/quote-requests",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <QuoteRequests />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/success-stories",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <SuccessStories />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/solutions",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Solutions />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/chat-messages",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <ChatMessages />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin-panel/visitor-analytics",
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <VisitorAnalytics />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
   },
 ]);
 
@@ -137,12 +293,12 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       <ErrorBoundary>
         <PerformanceOptimizer />
       </ErrorBoundary>
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </>
+    </AuthProvider>
   );
 };
 

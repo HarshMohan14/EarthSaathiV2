@@ -1,59 +1,44 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link as LucideLink, Clock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import bpcl from "../../public/bpcl.jpg";
-import shell from "../../public/shell.jpg";
-import aic from "../../public/AIC.jpg";
 import AnimatedHeadline from "./AnimatedHeadline ";
-import lowcarbon from "../../public/lowcarbon.jpg"
-import earthtech from "../../public/earthtech.jpg"
-import irena from "../../public/irena.jpg"
-const posts = [
-    {
-      title: "Shell E4",
-      description:
-        "After a multi-level screening process, Shell E4 has selected 5 innovative startups to join the boot camp journey for the Net Zero Challenge..",
-      image: shell,
-      date: "15-12-2023",
-    },
-    {
-      title: "BPCL Innovation Award 2023",
-      description:
-        "EarthSaathi has been selected as one of the finalists in the BPCL Innovation Award 2023 Final Round..",
-      image: bpcl,
-      date: "15-11-2023",
-    },
-    {
-      title:
-        "EarthTech 2024 Winners",
-      description:
-        "Incubated by AIC Sangam Innovation Foundation. Received the grant of a 20 lakhs through the Startup India Seed Fund Scheme (SISFS).",
-      image: earthtech,
-      date: "10/1/2025",
-    },
-    {
-      title:
-        "Winner of IRENA's NewGen Renewable Energy Accelerator",
-      description:
-        "EarthSaathi is among the selected ventures supported by Amaly Legacy's Climate and Social Innovation Studio. This opportunity will help us design Proof of Concepts (PoCs) and aid our market entry and distribution efforts, especially for rural communities in East Africa.",
-      image: irena,
-      date: "20-11-2024",
-    },
-    {
-      title:
-        "Finalist of LowCarbon.Earth",
-      description:
-        "EarthSaathi is among the selected ventures to showcase their technology in Asia Pacific's largest climate-focused accelerator program.",
-      image: lowcarbon,
-      date: "24-04-2025",
-    },
-  ];
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function SuccessCarousel() {
+  const [posts, setPosts] = useState([]);
   const [current, setCurrent] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(3);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
   const timeoutRef = useRef();
+
+  // Fetch success stories
+  useEffect(() => {
+    const fetchSuccessStories = async () => {
+      try {
+        const { successAPI } = await import('../utils/api');
+        const data = await successAPI.getAll();
+        // Convert to format expected by carousel
+        const formattedData = data.map(item => ({
+          title: item.title,
+          description: item.description,
+          image: item.imageUrl || item.image_url || '/earthSaathiFavicon.jpg',
+          date: item.date,
+          linkUrl: item.linkUrl || item.link_url,
+          _id: item._id || item.id,
+        }));
+        setPosts(formattedData);
+        setCurrent(0);
+      } catch (error) {
+        console.error('Error fetching success stories:', error);
+        setPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSuccessStories();
+  }, []);
 
   // Responsive slides calculation
   useEffect(() => {
@@ -69,11 +54,13 @@ export default function SuccessCarousel() {
 
   // Smooth autoplay with pause on interaction
   useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setCurrent(prev => (prev + 1) % posts.length);
-    }, 5000);
-    return () => clearTimeout(timeoutRef.current);
-  }, [current]);
+    if (posts.length > 0) {
+      timeoutRef.current = setTimeout(() => {
+        setCurrent(prev => (prev + 1) % posts.length);
+      }, 5000);
+      return () => clearTimeout(timeoutRef.current);
+    }
+  }, [current, posts.length]);
 
   const prevSlide = () => {
     clearTimeout(timeoutRef.current);
@@ -85,6 +72,7 @@ export default function SuccessCarousel() {
     setCurrent(prev => (prev + 1) % posts.length);
   };
   const getVisibleSlides = () => {
+    if (posts.length === 0) return [];
     const visible = [];
     for (let i = 0; i < slidesToShow; i++) {
       visible.push(posts[(current + i) % posts.length]);
@@ -94,11 +82,33 @@ export default function SuccessCarousel() {
   // Calculate card width based on container
   const cardWidth = `calc((100% - ${(slidesToShow - 1) * 3}rem) / ${slidesToShow})`;
 
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm py-10 flex flex-col items-center w-full relative overflow-hidden">
+        <LoadingSpinner message="Loading success stories..." variant="card" />
+      </div>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className="bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm py-10 flex flex-col items-center w-full relative overflow-hidden">
+        <div className="text-center text-gray-600 poppins">
+          <p>No success stories available at the moment.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-[#f1f6ff] poppins-regular py-10 flex flex-col items-center">
-     <AnimatedHeadline />
-      
-      <div className="relative w-full py-10 max-w-7xl overflow-hidden">
+    <div className="bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm poppins-regular py-10 flex flex-col items-center w-full relative overflow-hidden">
+      {/* Clean Earth decorative elements */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-100/15 rounded-full blur-3xl -z-10" />
+      <div className="relative z-10 w-full flex flex-col items-center">
+        <AnimatedHeadline />
+        
+        <div className="relative w-full py-10 max-w-7xl mx-auto overflow-hidden">
         {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
@@ -123,7 +133,7 @@ export default function SuccessCarousel() {
         >
           {getVisibleSlides().map((post, index) => (
             <motion.div
-              key={index}
+              key={post._id || index}
               className="shrink-0 relative"
               style={{ width: cardWidth }}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -131,7 +141,7 @@ export default function SuccessCarousel() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-white rounded-xl shadow-lg flex flex-col h-full">
+              <div className="bg-white/90 backdrop-blur-md rounded-xl shadow-lg flex flex-col h-full border border-blue-100/50">
                 <div className="relative overflow-hidden rounded-t-xl">
                   <motion.img
                     src={post.image}
@@ -141,12 +151,16 @@ export default function SuccessCarousel() {
                     transition={{ duration: 0.3 }}
                   />
                   
-                  <motion.a
-                    href="#"
-                    className="absolute inset-0 flex items-center justify-center bg-gradient-to-tr from-cyan-400/75 to-blue-600/60 opacity-0 hover:opacity-100 transition-opacity"
-                  >
-                    <LucideLink className="text-white w-8 h-8" />
-                  </motion.a>
+                  {post.linkUrl && (
+                    <motion.a
+                      href={post.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-tr from-cyan-400/75 to-blue-600/60 opacity-0 hover:opacity-100 transition-opacity"
+                    >
+                      <LucideLink className="text-white w-8 h-8" />
+                    </motion.a>
+                  )}
                 </div>
                 
                 <div className="p-6 flex  flex-col flex-1">
@@ -160,13 +174,17 @@ export default function SuccessCarousel() {
                     <Clock className="mr-2 w-5 h-5 text-green-400" />
                     {post.date}
                   </div>
-                  <a
-                    href="#"
-                    className="ml-auto px-6 py-2 bg-blue-500 text-white rounded-full text-sm 
-                     hover:bg-blue-600 transition-colors"
-                  >
-                    Read More
-                  </a>
+                  {post.linkUrl && (
+                    <a
+                      href={post.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto px-6 py-2 bg-blue-500 text-white rounded-full text-sm 
+                       hover:bg-blue-600 transition-colors"
+                    >
+                      Read More
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -174,8 +192,8 @@ export default function SuccessCarousel() {
         </motion.div>
       </div>
 
-      {/* Pagination Dots */}
-      <div className="flex justify-center mt-8 gap-2">
+        {/* Pagination Dots */}
+        <div className="flex justify-center mt-8 gap-2">
         {posts.map((_, index) => (
           <button
             key={index}
@@ -186,6 +204,7 @@ export default function SuccessCarousel() {
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
+      </div>
       </div>
     </div>
   );

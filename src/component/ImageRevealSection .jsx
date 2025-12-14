@@ -37,7 +37,7 @@ const ImageRevealSection = ({
         className="flex-1 space-y-6 md:space-y-8"
       >
         <p className="text-[#01DC98] openSans font-semibold text-5xl">{title}</p>
-        <p className="text-lg text-[#0C1F5E] md:text-xl ">{description}</p>
+        <p className="text-lg text-[#0C1F5E] md:text-xl poppins">{description}</p>
         {/* Points List */}
         <motion.div
           className="space-y-4"
@@ -53,9 +53,9 @@ const ImageRevealSection = ({
             <motion.div
               key={index}
               variants={pointVariants}
-              className="flex items-start gap-3"
+              className="flex items-start gap-3 bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-blue-100/50"
             >
-              <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-[#01DC98] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -70,7 +70,7 @@ const ImageRevealSection = ({
                   />
                 </svg>
               </div>
-              <span className="flex-1 text-base md:text-lg">{point}</span>
+              <span className="flex-1 text-base md:text-lg text-gray-900 poppins font-medium">{point}</span>
             </motion.div>
           ))}
         </motion.div>

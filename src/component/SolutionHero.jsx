@@ -16,7 +16,7 @@ const SolutionHero = () => {
         playsInline
       />
       {/* Optional: Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-[#01DC98]/10 to-[#0C1F5E]/10 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white/80 backdrop-blur-sm z-0" />
 
       {/* Decorative Sparkles */}
       <motion.div

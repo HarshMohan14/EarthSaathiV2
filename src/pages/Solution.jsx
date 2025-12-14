@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SolutionHero from "../component/SolutionHero";
 import ImageRevealSection from "../component/ImageRevealSection ";
-import nsMaxSolvent from "../../public/ns-max-solvent.jpg";
-import nsMaxUpgrade from "../../public/ns-max-upgrade.jpg";
 import { SEO } from '../utils/SEO';
 import ErrorBoundary from '../utils/ErrorBoundary';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Solution = () => {
+  const [solutions, setSolutions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSolutions = async () => {
+      try {
+        const { solutionsAPI } = await import('../utils/api');
+        const data = await solutionsAPI.getAll();
+        setSolutions(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching solutions:', error);
+        setSolutions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSolutions();
+  }, []);
+
   return (
     <>
       <ErrorBoundary>
@@ -27,33 +46,28 @@ const Solution = () => {
       </ErrorBoundary>
       <div>
         <SolutionHero />
-        <ImageRevealSection
-    title="NS-Max Solvent"
-    description="A next-generation CO₂ capture solvent, NS-Max is optimized for low-energy, high-efficiency absorption. With a regeneration temperature below 90°C, it reduces operating costs by up to 25%, while achieving up to 99.5% CO₂ removal.
-"
-    mainImage={nsMaxSolvent}
-    points={[
-      "5x longer solvent life",
-      "Low degradation, minimal solvent makeup",
-      "Drop-in replacement for existing CO₂ scrubbing systems",
-      "Ideal for biogas upgrading and flue gas CO₂ capture in steel, cement, and power sectors"
-    ]}
-    imagePosition="left"
-  />
-  <ImageRevealSection
-    title="NS-Max Upgrading Unit"
-    description="Our containerized modular system is designed to upgrade raw biogas or capture CO₂ from industrial flue gas. The unit integrates seamlessly with both biogas facilities and hard-to-abate sectors like steel, enabling on-site purification and emission reduction with ease..
-"
-    mainImage={nsMaxUpgrade}
-    points={[
-      "Mobile, plug-and-play unit for biogas and industrial CO₂ capture",
-      "Integrated solvent system for low OPEX and high purity output",
-      "Suitable for Bio-CNG generation, carbon credit applications, or emissions control",
-      "Scalable for multi-site deployment and fast commissioning"
-    ]}
-    imagePosition="right"
-  />
-
+        {loading ? (
+          <div className="bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm">
+            <LoadingSpinner message="Loading solutions..." variant="default" />
+          </div>
+        ) : solutions.length === 0 ? (
+          <div className="text-center py-12 bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm">
+            <p className="text-gray-600 poppins">No solutions available at the moment.</p>
+          </div>
+        ) : (
+          <div id="solutions">
+            {solutions.map((solution) => (
+              <ImageRevealSection
+                key={solution._id || solution.id}
+                title={solution.title}
+                description={solution.description}
+                mainImage={solution.imageUrl || solution.image_url || '/earthSaathiFavicon.jpg'}
+                points={Array.isArray(solution.points) ? solution.points : (typeof solution.points === 'string' ? JSON.parse(solution.points) : [])}
+                imagePosition={solution.imagePosition || solution.image_position || 'left'}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

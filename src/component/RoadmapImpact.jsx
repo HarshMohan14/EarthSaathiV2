@@ -47,10 +47,10 @@ const cardVariants = {
 };
 
 const RoadmapImpact = () => (
-  <section className="relative w-full py-20 px-4 md:px-8 bg-gradient-to-br from-green-50 via-green-100 to-emerald-50 overflow-hidden">
-    {/* Decorative background leaves */}
-    <div className="absolute -top-24 -left-24 w-80 h-80 bg-[#01DC98] rounded-full blur-3xl -z-10" />
-    <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-200/30 rounded-full blur-3xl -z-10" />
+  <section className="relative w-full py-20 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm">
+    {/* Clean Earth decorative elements - whitish blue */}
+    <div className="absolute -top-24 -left-24 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl -z-10" />
+    <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-cyan-100/15 rounded-full blur-3xl -z-10" />
 
     <div className="max-w-5xl mx-auto text-center mb-12">
       <h1 className="  text-[#01DC98] mb-4 drop-shadow">
@@ -66,7 +66,7 @@ const RoadmapImpact = () => (
       {metrics.map((metric, i) => (
         <motion.div
           key={metric.label}
-          className={`card bg-gradient-to-br ${metric.color} shadow-xl rounded-3xl p-8 flex flex-col items-center border-2 border-green-200/60 hover:scale-105 transition-transform duration-300`}
+          className={`card bg-white/90 backdrop-blur-md shadow-xl rounded-3xl p-8 flex flex-col items-center border border-blue-100/50 hover:scale-105 transition-all duration-300 hover:shadow-2xl`}
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.4 }}

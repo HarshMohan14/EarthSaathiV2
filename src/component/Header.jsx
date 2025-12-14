@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router";
+import QuoteModal from "../components/QuoteModal";
 
 const Header = () => {
   const location = useLocation();
@@ -9,6 +10,7 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [resourcesDrawerOpen, setResourcesDrawerOpen] = useState(false);
+  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
 
   console.log("Drawer open", drawerOpen);
 
@@ -26,6 +28,7 @@ const Header = () => {
     //   ],
     // },
     { text: "Project", path: "/project" },
+    { text: "Newsletter", path: "/newsletters" },
     // Remove Career and Community from top level
     // { text: "Career", path: "/career" },
     // { text: "Community", path: "/community" },
@@ -49,6 +52,9 @@ const Header = () => {
 
   return (
     <div>
+      {/* Quote Modal */}
+      <QuoteModal isOpen={quoteModalOpen} onClose={() => setQuoteModalOpen(false)} />
+
       {/* Drawer for mobile */}
       <div className="drawer drawer-end lg:hidden z-50">
         <input
@@ -179,11 +185,15 @@ const Header = () => {
               )
             )}
              <div className="p-4">
-      <Link to="/get-quote">
-        <button className="w-full btn btn-primary rounded-lg text-white font-semibold">
-          Get a Quote
-        </button>
-      </Link>
+      <button 
+        onClick={() => {
+          setQuoteModalOpen(true);
+          setDrawerOpen(false);
+        }}
+        className="w-full btn btn-primary rounded-lg text-white font-semibold bg-gradient-to-r from-[#01DC98] to-[#021358] border-none hover:opacity-90"
+      >
+        Get a Quote
+      </button>
     </div>
           </ul>
           
@@ -300,15 +310,14 @@ const Header = () => {
 
         {/* Theme Toggle and Contact Button */}
         <div className="navbar-end">
-          <Link to="/get-quote">
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn btn-md bg-[#01DC98] text-[#0C1F5E] rounded-xl border-none shadow-lg hover:bg-[#0C1F5E] hover:text-white transition"
-            >
-              Get a Quote
-            </motion.a>
-          </Link>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => setQuoteModalOpen(true)}
+            className="btn btn-md bg-[#01DC98] text-[#0C1F5E] rounded-xl border-none shadow-lg hover:bg-[#0C1F5E] hover:text-white transition"
+          >
+            Get a Quote
+          </motion.button>
         </div>
       </div>
     </div>

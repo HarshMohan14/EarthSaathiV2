@@ -2,21 +2,15 @@ import { Rocket, Lightbulb } from "lucide-react";
 
 const MissionVision = () => {
   return (
-    <section className="relative w-full py-24 px-4 md:px-8 bg-gradient-to-br from-primary/5 via-base-200/60 to-secondary/10 overflow-hidden">
-      {/* Decorative blurred circles */}
-      <div
-        className="absolute -top-24 -left-24 w-80 h-80 rounded-full blur-3xl -z-10"
-        style={{ background: "#05DD9A22" }}
-      />
-      <div
-        className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full blur-3xl -z-10"
-        style={{ background: "#02135822" }}
-      />
+    <section className="relative w-full py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm">
+      {/* Clean Earth decorative elements - whitish blue */}
+      <div className="absolute -top-24 -left-24 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl -z-10" />
+      <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-cyan-100/15 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Mission Panel */}
         <div
-          className="relative w-full bg-base-100/90 backdrop-blur-md p-10 md:p-14 rounded-3xl shadow-2xl flex flex-col items-start transition-all hover:scale-[1.02] hover:shadow-3xl"
+          className="relative w-full bg-white/90 backdrop-blur-md p-10 md:p-14 rounded-3xl shadow-2xl flex flex-col items-start transition-all hover:scale-[1.02] hover:shadow-3xl border border-blue-100/50"
           style={{ borderLeft: "8px solid #05DD9A" }}
         >
           <div className="flex items-center gap-4 mb-6">
@@ -57,7 +51,7 @@ const MissionVision = () => {
 
         {/* Vision Panel */}
         <div
-          className="relative w-full bg-base-100/90 backdrop-blur-md p-10 md:p-14 rounded-3xl shadow-2xl flex flex-col items-start transition-all hover:scale-[1.02] hover:shadow-3xl"
+          className="relative w-full bg-white/90 backdrop-blur-md p-10 md:p-14 rounded-3xl shadow-2xl flex flex-col items-start transition-all hover:scale-[1.02] hover:shadow-3xl border border-blue-100/50"
           style={{ borderLeft: "8px solid #021358" }}
         >
           <div className="flex items-center gap-4 mb-6">

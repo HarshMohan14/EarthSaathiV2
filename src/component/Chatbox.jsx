@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { MessageCircle, Leaf, X, SendHorizonal, Paperclip, SmilePlus, CheckCheck } from "lucide-react";
 import EmojiPicker from 'emoji-picker-react';
 import logo from "/Logo.png"
+
 const Chatbox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -10,6 +11,9 @@ const Chatbox = () => {
   const [showForm, setShowForm] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [attachments, setAttachments] = useState([]);
+  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [userInfo, setUserInfo] = useState({ name: '', email: '' });
+  const [saving, setSaving] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -24,7 +28,15 @@ const Chatbox = () => {
     e.preventDefault();
     if (!inputText.trim() && attachments.length === 0) return;
 
-    // Add user message
+    // If first message and no user info, show form
+    if (messages.length === 0 && !userInfo.name && !userInfo.email) {
+      setShowForm(true);
+      return;
+    }
+
+    setSaving(true);
+
+    // Add user message locally
     const newMessage = {
       text: inputText,
       sender: "user",
@@ -34,8 +46,95 @@ const Chatbox = () => {
     };
 
     setMessages(prev => [...prev, newMessage]);
+    const messageText = inputText;
+    const messageAttachments = [...attachments];
     setInputText("");
     setAttachments([]);
+
+    // Upload attachments to Supabase Storage and save message
+    try {
+      const { supabase } = await import('../utils/supabase');
+      const { supabaseChatAPI } = await import('../utils/supabaseApi');
+      
+      // Upload files to Supabase Storage
+      const uploadedAttachments = [];
+      
+      if (supabase && messageAttachments.length > 0) {
+        for (const file of messageAttachments) {
+          try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${sessionId}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+            const filePath = `chat-attachments/${fileName}`;
+            
+            const { data: uploadData, error: uploadError } = await supabase.storage
+              .from('chat-files')
+              .upload(filePath, file, {
+                cacheControl: '3600',
+                upsert: false
+              });
+            
+            if (uploadError) {
+              console.error('Error uploading file:', uploadError);
+              // Still save file metadata even if upload fails
+              uploadedAttachments.push({
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                url: null,
+                error: 'Upload failed'
+              });
+            } else {
+              // Get public URL
+              const { data: { publicUrl } } = supabase.storage
+                .from('chat-files')
+                .getPublicUrl(filePath);
+              
+              uploadedAttachments.push({
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                url: publicUrl,
+                path: filePath
+              });
+            }
+          } catch (fileError) {
+            console.error('Error processing file:', fileError);
+            uploadedAttachments.push({
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              url: null,
+              error: 'Processing failed'
+            });
+          }
+        }
+      } else if (messageAttachments.length > 0) {
+        // If Supabase not configured, just save metadata
+        uploadedAttachments.push(...messageAttachments.map(file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          url: null,
+          error: 'Storage not configured'
+        })));
+      }
+      
+      // Save message with attachment URLs
+      await supabaseChatAPI.create({
+        message: messageText,
+        sender_name: userInfo.name || null,
+        sender_email: userInfo.email || null,
+        sender_type: 'user',
+        status: 'new',
+        session_id: sessionId,
+        attachments: uploadedAttachments
+      });
+    } catch (error) {
+      console.error('Error saving chat message:', error);
+      // Continue even if save fails - message is already shown to user
+    } finally {
+      setSaving(false);
+    }
 
     // Simulate message read after 2 seconds
     setTimeout(() => {
@@ -52,6 +151,20 @@ const Chatbox = () => {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     }, 1000);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!userInfo.name.trim() && !userInfo.email.trim()) {
+      alert('Please provide at least your name or email');
+      return;
+    }
+    setShowForm(false);
+    // Trigger send after form is submitted
+    setTimeout(() => {
+      const fakeEvent = { preventDefault: () => {} };
+      handleSend(fakeEvent);
+    }, 100);
   };
 
   const handleFileSelect = (e) => {
@@ -94,8 +207,54 @@ const Chatbox = () => {
               </button>
             </div>
 
+            {/* User Info Form */}
+            {showForm && (
+              <div className="p-4 bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm border-b">
+                <form onSubmit={handleFormSubmit} className="space-y-3">
+                  <input
+                    type="text"
+                    placeholder="Your name (optional)"
+                    value={userInfo.name}
+                    onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#01DC98] text-gray-900 placeholder:text-gray-400"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your email (optional)"
+                    value={userInfo.email}
+                    onChange={(e) => setUserInfo({...userInfo, email: e.target.value})}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-[#01DC98] text-gray-900 placeholder:text-gray-400"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="submit"
+                      className="flex-1 bg-[#01DC98] text-white py-2 rounded-lg font-medium hover:bg-opacity-90 transition-colors"
+                    >
+                      Continue
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowForm(false);
+                        setUserInfo({ name: '', email: '' });
+                      }}
+                      className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      Skip
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
             {/* Messages */}
-            <div className="h-96 p-4 overflow-y-auto space-y-3 bg-[#f0f2f5]">
+            <div className="h-96 p-4 overflow-y-auto space-y-3 bg-gradient-to-br from-sky-50/50 via-blue-50/30 to-white backdrop-blur-sm">
+              {messages.length === 0 && !showForm && (
+                <div className="text-center py-8 text-gray-600">
+                  <MessageCircle className="w-12 h-12 mx-auto mb-2 text-[#01DC98]" />
+                  <p className="text-sm">Start a conversation with us!</p>
+                </div>
+              )}
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -114,9 +273,11 @@ const Chatbox = () => {
                       {message.attachments?.length > 0 && (
                         <div className="mb-2 space-y-2">
                           {message.attachments.map((file, i) => (
-                            <div key={i} className="p-2 bg-black/10 rounded-lg">
-                              <Paperclip className="inline w-4 h-4 mr-2" />
-                              <span className="text-sm">{file.name}</span>
+                            <div key={i} className="p-2 bg-black/10 rounded-lg break-words">
+                              <div className="flex items-start gap-2">
+                                <Paperclip className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                                <span className="text-sm break-words break-all min-w-0">{file.name}</span>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -142,9 +303,9 @@ const Chatbox = () => {
               {attachments.length > 0 && (
                 <div className="flex flex-wrap gap-2 p-2 mb-2 bg-gray-100 rounded-lg">
                   {attachments.map((file, i) => (
-                    <div key={i} className="flex items-center px-2 py-1 text-sm bg-white rounded">
-                      <Paperclip className="w-4 h-4 mr-1" />
-                      <span>{file.name}</span>
+                    <div key={i} className="flex items-center gap-2 px-2 py-1 text-sm bg-white rounded max-w-full">
+                      <Paperclip className="w-4 h-4 flex-shrink-0" />
+                      <span className="break-words break-all min-w-0 text-xs">{file.name}</span>
                     </div>
                   ))}
                 </div>
@@ -182,9 +343,14 @@ const Chatbox = () => {
 
                 <button
                   type="submit"
-                  className="bg-[#01DC98] text-white p-2 rounded-full hover:bg-opacity-90 transition-colors"
+                  disabled={saving}
+                  className="bg-[#01DC98] text-white p-2 rounded-full hover:bg-opacity-90 transition-colors disabled:opacity-50"
                 >
-                  <SendHorizonal className="w-5 h-5" />
+                  {saving ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <SendHorizonal className="w-5 h-5" />
+                  )}
                 </button>
               </form>
 

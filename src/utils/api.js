@@ -1,4 +1,17 @@
+import { 
+  supabaseAdvisorsAPI, 
+  supabaseProjectsAPI, 
+  supabaseTeamAPI, 
+  supabaseNewslettersAPI, 
+  supabaseSubscribersAPI, 
+  supabaseResourcesAPI,
+  supabaseSuccessAPI,
+  supabaseSolutionsAPI,
+  supabaseContactAPI
+} from './supabaseApi';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const USE_SUPABASE = !!import.meta.env.VITE_SUPABASE_URL;
 
 // Generic API call function
 const apiCall = async (endpoint, options = {}) => {
@@ -35,21 +48,51 @@ const apiCall = async (endpoint, options = {}) => {
   }
 };
 
-// Projects API
-export const projectsAPI = {
-  getAll: () => apiCall('/projects'),
-  getById: (id) => apiCall(`/projects/${id}`),
+// Projects API - Only returns database data (no static data)
+export const projectsAPI = USE_SUPABASE ? {
+  getAll: async () => {
+    try {
+      const data = await supabaseProjectsAPI.getAll();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching projects from Supabase:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return supabaseProjectsAPI.getById(id);
+  },
+} : {
+  getAll: async () => {
+    try {
+      const data = await apiCall('/projects');
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching projects from API:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return apiCall(`/projects/${id}`);
+  },
 };
 
 // Newsletters API
-export const newslettersAPI = {
+export const newslettersAPI = USE_SUPABASE ? {
+  getAll: () => supabaseNewslettersAPI.getAll(),
+  getPublished: () => supabaseNewslettersAPI.getPublished(),
+  getById: (id) => supabaseNewslettersAPI.getById(id),
+} : {
   getAll: () => apiCall('/newsletters'),
   getPublished: () => apiCall('/newsletters/published/all'),
   getById: (id) => apiCall(`/newsletters/${id}`),
 };
 
 // Newsletter Subscribers API
-export const newsletterSubscribersAPI = {
+export const newsletterSubscribersAPI = USE_SUPABASE ? {
+  subscribe: (data) => supabaseSubscribersAPI.subscribe(data),
+  unsubscribe: (data) => supabaseSubscribersAPI.unsubscribe(data),
+} : {
   subscribe: (data) => apiCall('/newsletter-subscribers/subscribe', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -60,24 +103,142 @@ export const newsletterSubscribersAPI = {
   }),
 };
 
-// Advisors API
-export const advisorsAPI = {
-  getAll: () => apiCall('/advisors'),
-  getById: (id) => apiCall(`/advisors/${id}`),
+// Advisors API - Only returns database data (no static data)
+export const advisorsAPI = USE_SUPABASE ? {
+  getAll: async () => {
+    try {
+      const data = await supabaseAdvisorsAPI.getAll();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching advisors from Supabase:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return supabaseAdvisorsAPI.getById(id);
+  },
+} : {
+  getAll: async () => {
+    try {
+      const data = await apiCall('/advisors');
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching advisors from API:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return apiCall(`/advisors/${id}`);
+  },
 };
 
-// Team API
-export const teamAPI = {
-  getAll: () => apiCall('/team'),
-  getById: (id) => apiCall(`/team/${id}`),
+// Team API - Only returns database data (no static data)
+export const teamAPI = USE_SUPABASE ? {
+  getAll: async () => {
+    try {
+      const data = await supabaseTeamAPI.getAll();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching team from Supabase:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return supabaseTeamAPI.getById(id);
+  },
+} : {
+  getAll: async () => {
+    try {
+      const data = await apiCall('/team');
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching team from API:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return apiCall(`/team/${id}`);
+  },
 };
 
 // Resources API
-export const resourcesAPI = {
+export const resourcesAPI = USE_SUPABASE ? {
+  getAll: () => supabaseResourcesAPI.getAll(),
+  getById: (id) => supabaseResourcesAPI.getById(id),
+  incrementDownload: (id) => supabaseResourcesAPI.incrementDownload(id),
+} : {
   getAll: () => apiCall('/resources'),
   getById: (id) => apiCall(`/resources/${id}`),
   incrementDownload: (id) => apiCall(`/resources/${id}/download`, {
     method: 'PATCH',
+  }),
+};
+
+// Success Stories API - Only returns database data (no static data)
+export const successAPI = USE_SUPABASE ? {
+  getAll: async () => {
+    try {
+      const data = await supabaseSuccessAPI.getAll();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching success stories from Supabase:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return supabaseSuccessAPI.getById(id);
+  },
+} : {
+  getAll: async () => {
+    try {
+      const data = await apiCall('/success-stories');
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching success stories from API:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return apiCall(`/success-stories/${id}`);
+  },
+};
+
+// Solutions API - Only returns database data (no static data)
+export const solutionsAPI = USE_SUPABASE ? {
+  getAll: async () => {
+    try {
+      const data = await supabaseSolutionsAPI.getAll();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching solutions from Supabase:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return supabaseSolutionsAPI.getById(id);
+  },
+} : {
+  getAll: async () => {
+    try {
+      const data = await apiCall('/solutions');
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error('Error fetching solutions from API:', error);
+      return [];
+    }
+  },
+  getById: (id) => {
+    return apiCall(`/solutions/${id}`);
+  },
+};
+
+// Contact Submissions API
+export const contactAPI = USE_SUPABASE ? {
+  submit: (data) => supabaseContactAPI.submit(data),
+} : {
+  submit: (data) => apiCall('/contact', {
+    method: 'POST',
+    body: JSON.stringify(data),
   }),
 };
 
@@ -87,5 +248,8 @@ export default {
   advisors: advisorsAPI,
   team: teamAPI,
   resources: resourcesAPI,
+  success: successAPI,
+  solutions: solutionsAPI,
+  contact: contactAPI,
 };
 
